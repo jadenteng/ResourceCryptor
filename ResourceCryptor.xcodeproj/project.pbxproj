@@ -1,0 +1,545 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CBEE9E3B243EB6B300ACA7FB /* ResourceCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEE9E39243EB6B300ACA7FB /* ResourceCryptor.m */; };
+		CBEE9E3C243EB6B300ACA7FB /* ResourceCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = CBEE9E3A243EB6B300ACA7FB /* ResourceCryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CBEE9E45243EBB8700ACA7FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEE9E44243EBB8700ACA7FB /* AppDelegate.m */; };
+		CBEE9E48243EBB8700ACA7FB /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEE9E47243EBB8700ACA7FB /* SceneDelegate.m */; };
+		CBEE9E4E243EBB8700ACA7FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E4C243EBB8700ACA7FB /* Main.storyboard */; };
+		CBEE9E50243EBB8C00ACA7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E4F243EBB8C00ACA7FB /* Assets.xcassets */; };
+		CBEE9E53243EBB8C00ACA7FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E51243EBB8C00ACA7FB /* LaunchScreen.storyboard */; };
+		CBEE9E56243EBB8C00ACA7FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEE9E55243EBB8C00ACA7FB /* main.m */; };
+		CBEE9E5C243EBBBF00ACA7FB /* ExampleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEE9E5B243EBBBF00ACA7FB /* ExampleController.m */; };
+		CBEE9E5E243EBC4A00ACA7FB /* ResourceCryptor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBEE9E2E243EB68000ACA7FB /* ResourceCryptor.framework */; };
+		CBEE9E5F243EBC4A00ACA7FB /* ResourceCryptor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBEE9E2E243EB68000ACA7FB /* ResourceCryptor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CBEE9E68243EF57000ACA7FB /* private.pem in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E63243EF56F00ACA7FB /* private.pem */; };
+		CBEE9E69243EF57000ACA7FB /* rsacert.csr in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E64243EF56F00ACA7FB /* rsacert.csr */; };
+		CBEE9E6A243EF57000ACA7FB /* rsacert.crt in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E65243EF56F00ACA7FB /* rsacert.crt */; };
+		CBEE9E6B243EF57000ACA7FB /* p.p12 in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E66243EF56F00ACA7FB /* p.p12 */; };
+		CBEE9E6C243EF57000ACA7FB /* rsacert.der in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E67243EF56F00ACA7FB /* rsacert.der */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CBEE9E60243EBC4A00ACA7FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CBEE9E25243EB68000ACA7FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CBEE9E2D243EB68000ACA7FB;
+			remoteInfo = ResourceCryptor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CBEE9E62243EBC4A00ACA7FB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CBEE9E5F243EBC4A00ACA7FB /* ResourceCryptor.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		CBEE9E2E243EB68000ACA7FB /* ResourceCryptor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ResourceCryptor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBEE9E32243EB68000ACA7FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBEE9E39243EB6B300ACA7FB /* ResourceCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceCryptor.m; sourceTree = "<group>"; };
+		CBEE9E3A243EB6B300ACA7FB /* ResourceCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceCryptor.h; sourceTree = "<group>"; };
+		CBEE9E41243EBB8700ACA7FB /* ResourceCryptorExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResourceCryptorExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBEE9E43243EBB8700ACA7FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CBEE9E44243EBB8700ACA7FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CBEE9E46243EBB8700ACA7FB /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		CBEE9E47243EBB8700ACA7FB /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		CBEE9E4D243EBB8700ACA7FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CBEE9E4F243EBB8C00ACA7FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CBEE9E52243EBB8C00ACA7FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CBEE9E54243EBB8C00ACA7FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBEE9E55243EBB8C00ACA7FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CBEE9E5A243EBBBF00ACA7FB /* ExampleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExampleController.h; sourceTree = "<group>"; };
+		CBEE9E5B243EBBBF00ACA7FB /* ExampleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleController.m; sourceTree = "<group>"; };
+		CBEE9E63243EF56F00ACA7FB /* private.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = private.pem; sourceTree = "<group>"; };
+		CBEE9E64243EF56F00ACA7FB /* rsacert.csr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rsacert.csr; sourceTree = "<group>"; };
+		CBEE9E65243EF56F00ACA7FB /* rsacert.crt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rsacert.crt; sourceTree = "<group>"; };
+		CBEE9E66243EF56F00ACA7FB /* p.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = p.p12; sourceTree = "<group>"; };
+		CBEE9E67243EF56F00ACA7FB /* rsacert.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = rsacert.der; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CBEE9E2B243EB68000ACA7FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBEE9E3E243EBB8700ACA7FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBEE9E5E243EBC4A00ACA7FB /* ResourceCryptor.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CBEE9E24243EB68000ACA7FB = {
+			isa = PBXGroup;
+			children = (
+				CBEE9E30243EB68000ACA7FB /* ResourceCryptor */,
+				CBEE9E42243EBB8700ACA7FB /* ResourceCryptorExample */,
+				CBEE9E2F243EB68000ACA7FB /* Products */,
+				CBEE9E5D243EBC4A00ACA7FB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CBEE9E2F243EB68000ACA7FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CBEE9E2E243EB68000ACA7FB /* ResourceCryptor.framework */,
+				CBEE9E41243EBB8700ACA7FB /* ResourceCryptorExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CBEE9E30243EB68000ACA7FB /* ResourceCryptor */ = {
+			isa = PBXGroup;
+			children = (
+				CBEE9E3A243EB6B300ACA7FB /* ResourceCryptor.h */,
+				CBEE9E39243EB6B300ACA7FB /* ResourceCryptor.m */,
+				CBEE9E32243EB68000ACA7FB /* Info.plist */,
+			);
+			path = ResourceCryptor;
+			sourceTree = "<group>";
+		};
+		CBEE9E42243EBB8700ACA7FB /* ResourceCryptorExample */ = {
+			isa = PBXGroup;
+			children = (
+				CBEE9E66243EF56F00ACA7FB /* p.p12 */,
+				CBEE9E63243EF56F00ACA7FB /* private.pem */,
+				CBEE9E65243EF56F00ACA7FB /* rsacert.crt */,
+				CBEE9E64243EF56F00ACA7FB /* rsacert.csr */,
+				CBEE9E67243EF56F00ACA7FB /* rsacert.der */,
+				CBEE9E43243EBB8700ACA7FB /* AppDelegate.h */,
+				CBEE9E44243EBB8700ACA7FB /* AppDelegate.m */,
+				CBEE9E46243EBB8700ACA7FB /* SceneDelegate.h */,
+				CBEE9E47243EBB8700ACA7FB /* SceneDelegate.m */,
+				CBEE9E5A243EBBBF00ACA7FB /* ExampleController.h */,
+				CBEE9E5B243EBBBF00ACA7FB /* ExampleController.m */,
+				CBEE9E4C243EBB8700ACA7FB /* Main.storyboard */,
+				CBEE9E4F243EBB8C00ACA7FB /* Assets.xcassets */,
+				CBEE9E51243EBB8C00ACA7FB /* LaunchScreen.storyboard */,
+				CBEE9E54243EBB8C00ACA7FB /* Info.plist */,
+				CBEE9E55243EBB8C00ACA7FB /* main.m */,
+			);
+			path = ResourceCryptorExample;
+			sourceTree = "<group>";
+		};
+		CBEE9E5D243EBC4A00ACA7FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		CBEE9E29243EB68000ACA7FB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBEE9E3C243EB6B300ACA7FB /* ResourceCryptor.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		CBEE9E2D243EB68000ACA7FB /* ResourceCryptor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CBEE9E36243EB68000ACA7FB /* Build configuration list for PBXNativeTarget "ResourceCryptor" */;
+			buildPhases = (
+				CBEE9E29243EB68000ACA7FB /* Headers */,
+				CBEE9E2A243EB68000ACA7FB /* Sources */,
+				CBEE9E2B243EB68000ACA7FB /* Frameworks */,
+				CBEE9E2C243EB68000ACA7FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ResourceCryptor;
+			productName = ResourceCryptor;
+			productReference = CBEE9E2E243EB68000ACA7FB /* ResourceCryptor.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		CBEE9E40243EBB8700ACA7FB /* ResourceCryptorExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CBEE9E57243EBB8C00ACA7FB /* Build configuration list for PBXNativeTarget "ResourceCryptorExample" */;
+			buildPhases = (
+				CBEE9E3D243EBB8700ACA7FB /* Sources */,
+				CBEE9E3E243EBB8700ACA7FB /* Frameworks */,
+				CBEE9E3F243EBB8700ACA7FB /* Resources */,
+				CBEE9E62243EBC4A00ACA7FB /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CBEE9E61243EBC4A00ACA7FB /* PBXTargetDependency */,
+			);
+			name = ResourceCryptorExample;
+			productName = ResourceCryptorExample;
+			productReference = CBEE9E41243EBB8700ACA7FB /* ResourceCryptorExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CBEE9E25243EB68000ACA7FB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = Jaden;
+				TargetAttributes = {
+					CBEE9E2D243EB68000ACA7FB = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					CBEE9E40243EBB8700ACA7FB = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+				};
+			};
+			buildConfigurationList = CBEE9E28243EB68000ACA7FB /* Build configuration list for PBXProject "ResourceCryptor" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CBEE9E24243EB68000ACA7FB;
+			productRefGroup = CBEE9E2F243EB68000ACA7FB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CBEE9E2D243EB68000ACA7FB /* ResourceCryptor */,
+				CBEE9E40243EBB8700ACA7FB /* ResourceCryptorExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CBEE9E2C243EB68000ACA7FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBEE9E3F243EBB8700ACA7FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBEE9E6C243EF57000ACA7FB /* rsacert.der in Resources */,
+				CBEE9E69243EF57000ACA7FB /* rsacert.csr in Resources */,
+				CBEE9E6B243EF57000ACA7FB /* p.p12 in Resources */,
+				CBEE9E53243EBB8C00ACA7FB /* LaunchScreen.storyboard in Resources */,
+				CBEE9E50243EBB8C00ACA7FB /* Assets.xcassets in Resources */,
+				CBEE9E68243EF57000ACA7FB /* private.pem in Resources */,
+				CBEE9E6A243EF57000ACA7FB /* rsacert.crt in Resources */,
+				CBEE9E4E243EBB8700ACA7FB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CBEE9E2A243EB68000ACA7FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBEE9E3B243EB6B300ACA7FB /* ResourceCryptor.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBEE9E3D243EBB8700ACA7FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBEE9E45243EBB8700ACA7FB /* AppDelegate.m in Sources */,
+				CBEE9E56243EBB8C00ACA7FB /* main.m in Sources */,
+				CBEE9E5C243EBBBF00ACA7FB /* ExampleController.m in Sources */,
+				CBEE9E48243EBB8700ACA7FB /* SceneDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CBEE9E61243EBC4A00ACA7FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CBEE9E2D243EB68000ACA7FB /* ResourceCryptor */;
+			targetProxy = CBEE9E60243EBC4A00ACA7FB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CBEE9E4C243EBB8700ACA7FB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBEE9E4D243EBB8700ACA7FB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CBEE9E51243EBB8C00ACA7FB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CBEE9E52243EBB8C00ACA7FB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CBEE9E34243EB68000ACA7FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		CBEE9E35243EB68000ACA7FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		CBEE9E37243EB68000ACA7FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = FFX6ABGTP4;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ResourceCryptor/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Teng.ResourceCryptor;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CBEE9E38243EB68000ACA7FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = FFX6ABGTP4;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = ResourceCryptor/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Teng.ResourceCryptor;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CBEE9E58243EBB8C00ACA7FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FFX6ABGTP4;
+				INFOPLIST_FILE = ResourceCryptorExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Teng.ResourceCryptorExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CBEE9E59243EBB8C00ACA7FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FFX6ABGTP4;
+				INFOPLIST_FILE = ResourceCryptorExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Teng.ResourceCryptorExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CBEE9E28243EB68000ACA7FB /* Build configuration list for PBXProject "ResourceCryptor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBEE9E34243EB68000ACA7FB /* Debug */,
+				CBEE9E35243EB68000ACA7FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CBEE9E36243EB68000ACA7FB /* Build configuration list for PBXNativeTarget "ResourceCryptor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBEE9E37243EB68000ACA7FB /* Debug */,
+				CBEE9E38243EB68000ACA7FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CBEE9E57243EBB8C00ACA7FB /* Build configuration list for PBXNativeTarget "ResourceCryptorExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBEE9E58243EBB8C00ACA7FB /* Debug */,
+				CBEE9E59243EBB8C00ACA7FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CBEE9E25243EB68000ACA7FB /* Project object */;
+}
