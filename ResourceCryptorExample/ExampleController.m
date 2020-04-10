@@ -9,6 +9,12 @@
 #import "ExampleController.h"
 #import <ResourceCryptor/ResourceCryptor.h>
 #import <Network/Network.h>
+#import "R_SA.h"
+
+NSString *key = @"iojyxgas+x*$a$*s";
+NSString *iv = @"iojyxgas+x*$a$*s";
+
+NSString *string = @"hello hello";
 
 @interface PublicKeyInfo : NSObject
 
@@ -23,6 +29,7 @@
 
 @end
 
+
 @implementation ExampleController
 
 - (void)viewDidLoad {
@@ -30,113 +37,130 @@
     // Do any additional setup after loading the view.
 }
 
-//普遍的加密方法：
-///客户端用RSA的公钥 加密AES的秘钥，
-///服务器端用私钥解开获得的AES的秘钥，客户端再与服务器端进行AES加密的数据传输，即HTTPS协议传输的原理
-
-- (IBAction)touchUpAction:(id)sender {
+- (void)testRSA1 {
     
-    PublicKeyInfo *pub = [[PublicKeyInfo alloc] init];
-    pub.version = @"1.0";
-    pub.pem = @"123456jkkkhhh"; //这里的值是服务器返回的 key
-    
-    NSString *key = @"iojyxgas+x*$a$*s";
-    NSString *iv = @"iojyxgas+x*$a$*s";
-    
-    NSString *string = @"hello hello";
-    
-    [self test:@"RSA 加解密1" :^{
-        
-        ResourceCryptor *cry = [ResourceCryptor share];
+    [self test:@"RSA 1" :^{
         //1加载公钥
-        [cry rsa_public_key_path:[[NSBundle mainBundle] pathForResource:@"rsacert.der" ofType:nil]];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"ca.der" ofType:nil];
+        
+        RSA_.add_public_key_path(path);
         //2:使用公钥加密
-        NSString *en_str = [cry RSA_EN_String:pub.pem];
+        NSString *en_str = RSA_.EN_String(@"hello");
         NSLog(@"加密后结果:%@",en_str);
         
         //3:加载私钥,并且指定导出p12时设定的密码
-        [cry rsa_private_key_path:[[NSBundle mainBundle] pathForResource:@"p.p12" ofType:nil] pwd:@"123456"];
+        NSString *p12Path = [[NSBundle mainBundle] pathForResource:@"p.p12" ofType:nil];
+        RSA_.add_private_key_path(p12Path,@"123456");//path:路径 pwd:密码
         
         // 4. 使用私钥解密
-        NSLog(@"解密结果 %@", [cry RSA_DE_String:en_str]);
+        NSString *de_str = RSA_.DE_String(en_str);
+        NSLog(@"解密结果 %@", de_str);
     }];
+}
+
+- (void)testRSA2 {
     
-    [self test:@"RSA 加解密2" :^{
+    [self test:@"RSA 2" :^{
         
         NSString *pubkey = @"-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI2bvVLVYrb4B0raZgFP60VXY\ncvRmk9q56QiTmEm9HXlSPq1zyhyPQHGti5FokYJMzNcKm0bwL1q6ioJuD4EFI56D\na+70XdRz1CjQPQE3yXrXXVvOsmq9LsdxTFWsVBTehdCmrapKZVVx6PKl7myh0cfX\nQmyveT/eqyZK1gYjvQIDAQAB\n-----END PUBLIC KEY-----";
         NSString *privkey = @"-----BEGIN PRIVATE KEY-----\nMIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMMjZu9UtVitvgHS\ntpmAU/rRVdhy9GaT2rnpCJOYSb0deVI+rXPKHI9Aca2LkWiRgkzM1wqbRvAvWrqK\ngm4PgQUjnoNr7vRd1HPUKNA9ATfJetddW86yar0ux3FMVaxUFN6F0KatqkplVXHo\n8qXubKHRx9dCbK95P96rJkrWBiO9AgMBAAECgYBO1UKEdYg9pxMX0XSLVtiWf3Na\n2jX6Ksk2Sfp5BhDkIcAdhcy09nXLOZGzNqsrv30QYcCOPGTQK5FPwx0mMYVBRAdo\nOLYp7NzxW/File//169O3ZFpkZ7MF0I2oQcNGTpMCUpaY6xMmxqN22INgi8SHp3w\nVU+2bRMLDXEc/MOmAQJBAP+Sv6JdkrY+7WGuQN5O5PjsB15lOGcr4vcfz4vAQ/uy\nEGYZh6IO2Eu0lW6sw2x6uRg0c6hMiFEJcO89qlH/B10CQQDDdtGrzXWVG457vA27\nkpduDpM6BQWTX6wYV9zRlcYYMFHwAQkE0BTvIYde2il6DKGyzokgI6zQyhgtRJ1x\nL6fhAkB9NvvW4/uWeLw7CHHVuVersZBmqjb5LWJU62v3L2rfbT1lmIqAVr+YT9CK\n2fAhPPtkpYYo5d4/vd1sCY1iAQ4tAkEAm2yPrJzjMn2G/ry57rzRzKGqUChOFrGs\nlm7HF6CQtAs4HC+2jC0peDyg97th37rLmPLB9txnPl50ewpkZuwOAQJBAM/eJnFw\nF5QAcL4CYDbfBKocx82VX/pFXng50T7FODiWbbL4UnxICE0UBFInNNiWJxNEb6jL\n5xd0pcy9O2DOeso=\n-----END PRIVATE KEY-----";
         
-        ResourceCryptor *cry = [ResourceCryptor share];
-        //1加载公钥
-        [cry rsa_public_key:pubkey];
-        
-        //2:使用公钥加密
-        NSString *en_str = [cry RSA_EN_String:pub.pem];
-        NSLog(@"加密后结果:%@",en_str);
-        
-        //3:加载私钥
-        [cry rsa_private_key:privkey];
-        
-        // 4. 使用私钥解密
-        NSLog(@"解密结果 %@", [cry RSA_DE_String:en_str]);
+        NSString *info_str = @"hello hello";
+        // 1:加载公钥
+        RSA_.add_public_key(pubkey);
+        // 2:使用公钥加密
+        NSString *en_str = RSA_.EN_String(info_str);
+        // 3:加载私钥
+        RSA_.add_private_key(privkey);
+        // 4:使用私钥解密
+        NSLog(@"解密结果 %@", RSA_.DE_String(en_str));
     }];
+}
+
+- (void)testHMAC {
     
-    [self test:@"DES 加解密":^{
+    [self test:@"HMAC" :^{
+        NSString *string = @"hello";
+        
+        NSLog(@"MD_5:%@",string.MD_5);
+        NSLog(@"SHA_1:%@",string.SHA_1);
+        NSLog(@"SHA_224:%@",string.SHA_224);
+        NSLog(@"SHA_384:%@",string.SHA_384);
+        NSLog(@"SHA_256:%@",string.SHA_256);
+        NSLog(@"SHA_512:%@",string.SHA_512);
+        
+        NSLog(@"==============HMAC=======================");
+        NSLog(@"MD_5:%@",string.SHA_MD5_HMAC_block(key));
+        NSLog(@"SHA_256:%@",string.SHA_256_HMAC_block(key));
+        NSLog(@"SHA_224:%@",@"hello".SHA_224_HMAC_block(key));
+        NSLog(@"SHA_1:%@",@"hello".SHA_1_HMAC_block(key));
+    }];
+}
+- (void)testDES {
+    
+    [self test:@"DES":^{
+        /// jsonObj
         NSDictionary *paramters = @{@"key1":@"10",@"key2":@1};
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:paramters options:NSJSONWritingPrettyPrinted error:nil];
-        
-        NSData *en_data = [jsonData DES_EN:key iv:iv];
+        NSData *jsonData = paramters.json_Data;
+        /// 加密DES
+        NSData *en_data = jsonData.EN_DES(key,iv);
         /// 解密
-        NSData *de_data = [en_data DES_DE:key iv:iv];
-        
-        NSDictionary *de_json = [NSJSONSerialization JSONObjectWithData:de_data options:0 error:nil];
+        NSData *de_data = en_data.DE_DES(key, iv);
+        NSDictionary *de_json = de_data.JSON_Object;
         NSLog(@"解密:%@",de_json);
         
-        NSString *en_str = [string DES_EN:key iv:iv];
-        NSLog(@"en_str:%@",en_str);
-        
-        NSLog(@"解密:%@",[en_str DES_DE:key iv:iv]);
+        /// String
+        NSString *en_str = string.EN_DES(key,iv);
+        NSLog(@"加密en_str:%@",en_str);
+        NSLog(@"解密:%@",en_str.DE_DES(key,iv));
     }];
+}
+
+- (void)testAES {
     
-    [self test:@"AES 加解密":^{
-        
+    [self test:@"AES":^{
+        /// jsonObj
         NSDictionary *paramters = @{@"key1":@"10",@"key2":@1};
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:paramters options:NSJSONWritingPrettyPrinted error:nil];
-        
+        NSData *jsonData = paramters.json_Data;
+        /// 加密
         NSData *en_data = [jsonData AES_EN:key iv:iv];
         /// 解密
         NSData *de_data = [en_data AES_DE:key iv:iv];
-        
-        NSDictionary *de_json = [NSJSONSerialization JSONObjectWithData:de_data options:0 error:nil];
+        NSDictionary *de_json = de_data.JSON_Object;
         NSLog(@"%@",de_json);
         
-    }];
-    
-    [self test:@"MD5 AND BASE64" :^{
-        
-        NSString *base64 = @"ha ha ha".base_64;
-        NSLog(@"base64:%@",base64);
-        NSLog(@"原字符串:%@",base64.encoding_base64);
-        NSLog(@"MD_5:%@",@"this  is md5".MD_5);
-        NSLog(@"SHA_256:%@",@"this  is md5".SHA_256);
-        NSLog(@"md:%@",@"this  is md5".SHA_256_block(@"my"));
+        /// String
+        NSString *en_str = string.EN_AES(key,iv);
+        NSLog(@"加密en_str:%@",en_str);
+        NSLog(@"解密:%@",en_str.DE_AES(key,iv));
         
     }];
-    
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.row) {
+        case 0:
+            [self testRSA1];
+            break;
+        case 1:
+            [self testRSA2];
+            break;
+        case 2:
+            [self testAES];
+            break;
+        case 3:
+            [self testDES];
+            break;
+        case 4:
+            [self testHMAC];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)test:(NSString *)des :(dispatch_block_t)block {
     NSLog(@"\n=============== %@ ======================\n",des);
     block();
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

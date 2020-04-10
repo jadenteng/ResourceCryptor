@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB10A15224407B2400D24018 /* p.p12 in Resources */ = {isa = PBXBuildFile; fileRef = CB10A15024407B2300D24018 /* p.p12 */; };
+		CB10A15324407B2400D24018 /* ca.der in Resources */ = {isa = PBXBuildFile; fileRef = CB10A15124407B2400D24018 /* ca.der */; };
+		CB10A15524407BDD00D24018 /* ca.csr in Resources */ = {isa = PBXBuildFile; fileRef = CB10A15424407BDD00D24018 /* ca.csr */; };
 		CBEE9E3B243EB6B300ACA7FB /* ResourceCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEE9E39243EB6B300ACA7FB /* ResourceCryptor.m */; };
 		CBEE9E3C243EB6B300ACA7FB /* ResourceCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = CBEE9E3A243EB6B300ACA7FB /* ResourceCryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CBEE9E45243EBB8700ACA7FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEE9E44243EBB8700ACA7FB /* AppDelegate.m */; };
@@ -18,15 +21,21 @@
 		CBEE9E5C243EBBBF00ACA7FB /* ExampleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEE9E5B243EBBBF00ACA7FB /* ExampleController.m */; };
 		CBEE9E5E243EBC4A00ACA7FB /* ResourceCryptor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBEE9E2E243EB68000ACA7FB /* ResourceCryptor.framework */; };
 		CBEE9E5F243EBC4A00ACA7FB /* ResourceCryptor.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CBEE9E2E243EB68000ACA7FB /* ResourceCryptor.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CBEE9E68243EF57000ACA7FB /* private.pem in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E63243EF56F00ACA7FB /* private.pem */; };
-		CBEE9E69243EF57000ACA7FB /* rsacert.csr in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E64243EF56F00ACA7FB /* rsacert.csr */; };
-		CBEE9E6A243EF57000ACA7FB /* rsacert.crt in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E65243EF56F00ACA7FB /* rsacert.crt */; };
-		CBEE9E6B243EF57000ACA7FB /* p.p12 in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E66243EF56F00ACA7FB /* p.p12 */; };
-		CBEE9E6C243EF57000ACA7FB /* rsacert.der in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E67243EF56F00ACA7FB /* rsacert.der */; };
+		CBEE9E6F243F1A5800ACA7FB /* R_SA.h in Headers */ = {isa = PBXBuildFile; fileRef = CBEE9E6D243F1A5800ACA7FB /* R_SA.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CBEE9E70243F1A5800ACA7FB /* R_SA.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEE9E6E243F1A5800ACA7FB /* R_SA.m */; };
+		CBEE9E78243F533B00ACA7FB /* ResourceCryptorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEE9E77243F533B00ACA7FB /* ResourceCryptorTests.m */; };
+		CBEE9E7A243F533B00ACA7FB /* ResourceCryptor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBEE9E2E243EB68000ACA7FB /* ResourceCryptor.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		CBEE9E60243EBC4A00ACA7FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CBEE9E25243EB68000ACA7FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CBEE9E2D243EB68000ACA7FB;
+			remoteInfo = ResourceCryptor;
+		};
+		CBEE9E7B243F533B00ACA7FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CBEE9E25243EB68000ACA7FB /* Project object */;
 			proxyType = 1;
@@ -50,6 +59,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CB10A15024407B2300D24018 /* p.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = p.p12; sourceTree = "<group>"; };
+		CB10A15124407B2400D24018 /* ca.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = ca.der; sourceTree = "<group>"; };
+		CB10A15424407BDD00D24018 /* ca.csr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ca.csr; sourceTree = "<group>"; };
 		CBEE9E2E243EB68000ACA7FB /* ResourceCryptor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ResourceCryptor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBEE9E32243EB68000ACA7FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBEE9E39243EB6B300ACA7FB /* ResourceCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceCryptor.m; sourceTree = "<group>"; };
@@ -66,11 +78,11 @@
 		CBEE9E55243EBB8C00ACA7FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CBEE9E5A243EBBBF00ACA7FB /* ExampleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExampleController.h; sourceTree = "<group>"; };
 		CBEE9E5B243EBBBF00ACA7FB /* ExampleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleController.m; sourceTree = "<group>"; };
-		CBEE9E63243EF56F00ACA7FB /* private.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = private.pem; sourceTree = "<group>"; };
-		CBEE9E64243EF56F00ACA7FB /* rsacert.csr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rsacert.csr; sourceTree = "<group>"; };
-		CBEE9E65243EF56F00ACA7FB /* rsacert.crt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rsacert.crt; sourceTree = "<group>"; };
-		CBEE9E66243EF56F00ACA7FB /* p.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = p.p12; sourceTree = "<group>"; };
-		CBEE9E67243EF56F00ACA7FB /* rsacert.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = rsacert.der; sourceTree = "<group>"; };
+		CBEE9E6D243F1A5800ACA7FB /* R_SA.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = R_SA.h; sourceTree = "<group>"; };
+		CBEE9E6E243F1A5800ACA7FB /* R_SA.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = R_SA.m; sourceTree = "<group>"; };
+		CBEE9E75243F533B00ACA7FB /* ResourceCryptorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ResourceCryptorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBEE9E77243F533B00ACA7FB /* ResourceCryptorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResourceCryptorTests.m; sourceTree = "<group>"; };
+		CBEE9E79243F533B00ACA7FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +101,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CBEE9E72243F533B00ACA7FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBEE9E7A243F533B00ACA7FB /* ResourceCryptor.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -97,6 +117,7 @@
 			children = (
 				CBEE9E30243EB68000ACA7FB /* ResourceCryptor */,
 				CBEE9E42243EBB8700ACA7FB /* ResourceCryptorExample */,
+				CBEE9E76243F533B00ACA7FB /* ResourceCryptorTests */,
 				CBEE9E2F243EB68000ACA7FB /* Products */,
 				CBEE9E5D243EBC4A00ACA7FB /* Frameworks */,
 			);
@@ -107,6 +128,7 @@
 			children = (
 				CBEE9E2E243EB68000ACA7FB /* ResourceCryptor.framework */,
 				CBEE9E41243EBB8700ACA7FB /* ResourceCryptorExample.app */,
+				CBEE9E75243F533B00ACA7FB /* ResourceCryptorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -116,6 +138,8 @@
 			children = (
 				CBEE9E3A243EB6B300ACA7FB /* ResourceCryptor.h */,
 				CBEE9E39243EB6B300ACA7FB /* ResourceCryptor.m */,
+				CBEE9E6D243F1A5800ACA7FB /* R_SA.h */,
+				CBEE9E6E243F1A5800ACA7FB /* R_SA.m */,
 				CBEE9E32243EB68000ACA7FB /* Info.plist */,
 			);
 			path = ResourceCryptor;
@@ -124,11 +148,9 @@
 		CBEE9E42243EBB8700ACA7FB /* ResourceCryptorExample */ = {
 			isa = PBXGroup;
 			children = (
-				CBEE9E66243EF56F00ACA7FB /* p.p12 */,
-				CBEE9E63243EF56F00ACA7FB /* private.pem */,
-				CBEE9E65243EF56F00ACA7FB /* rsacert.crt */,
-				CBEE9E64243EF56F00ACA7FB /* rsacert.csr */,
-				CBEE9E67243EF56F00ACA7FB /* rsacert.der */,
+				CB10A15124407B2400D24018 /* ca.der */,
+				CB10A15424407BDD00D24018 /* ca.csr */,
+				CB10A15024407B2300D24018 /* p.p12 */,
 				CBEE9E43243EBB8700ACA7FB /* AppDelegate.h */,
 				CBEE9E44243EBB8700ACA7FB /* AppDelegate.m */,
 				CBEE9E46243EBB8700ACA7FB /* SceneDelegate.h */,
@@ -151,6 +173,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CBEE9E76243F533B00ACA7FB /* ResourceCryptorTests */ = {
+			isa = PBXGroup;
+			children = (
+				CBEE9E77243F533B00ACA7FB /* ResourceCryptorTests.m */,
+				CBEE9E79243F533B00ACA7FB /* Info.plist */,
+			);
+			path = ResourceCryptorTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -159,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBEE9E3C243EB6B300ACA7FB /* ResourceCryptor.h in Headers */,
+				CBEE9E6F243F1A5800ACA7FB /* R_SA.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +234,24 @@
 			productReference = CBEE9E41243EBB8700ACA7FB /* ResourceCryptorExample.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CBEE9E74243F533B00ACA7FB /* ResourceCryptorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CBEE9E7D243F533B00ACA7FB /* Build configuration list for PBXNativeTarget "ResourceCryptorTests" */;
+			buildPhases = (
+				CBEE9E71243F533B00ACA7FB /* Sources */,
+				CBEE9E72243F533B00ACA7FB /* Frameworks */,
+				CBEE9E73243F533B00ACA7FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CBEE9E7C243F533B00ACA7FB /* PBXTargetDependency */,
+			);
+			name = ResourceCryptorTests;
+			productName = ResourceCryptorTests;
+			productReference = CBEE9E75243F533B00ACA7FB /* ResourceCryptorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -215,6 +265,9 @@
 						CreatedOnToolsVersion = 11.3.1;
 					};
 					CBEE9E40243EBB8700ACA7FB = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					CBEE9E74243F533B00ACA7FB = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
@@ -234,6 +287,7 @@
 			targets = (
 				CBEE9E2D243EB68000ACA7FB /* ResourceCryptor */,
 				CBEE9E40243EBB8700ACA7FB /* ResourceCryptorExample */,
+				CBEE9E74243F533B00ACA7FB /* ResourceCryptorTests */,
 			);
 		};
 /* End PBXProject section */
@@ -250,14 +304,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBEE9E6C243EF57000ACA7FB /* rsacert.der in Resources */,
-				CBEE9E69243EF57000ACA7FB /* rsacert.csr in Resources */,
-				CBEE9E6B243EF57000ACA7FB /* p.p12 in Resources */,
+				CB10A15324407B2400D24018 /* ca.der in Resources */,
 				CBEE9E53243EBB8C00ACA7FB /* LaunchScreen.storyboard in Resources */,
 				CBEE9E50243EBB8C00ACA7FB /* Assets.xcassets in Resources */,
-				CBEE9E68243EF57000ACA7FB /* private.pem in Resources */,
-				CBEE9E6A243EF57000ACA7FB /* rsacert.crt in Resources */,
+				CB10A15224407B2400D24018 /* p.p12 in Resources */,
+				CB10A15524407BDD00D24018 /* ca.csr in Resources */,
 				CBEE9E4E243EBB8700ACA7FB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBEE9E73243F533B00ACA7FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +327,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBEE9E70243F1A5800ACA7FB /* R_SA.m in Sources */,
 				CBEE9E3B243EB6B300ACA7FB /* ResourceCryptor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +343,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CBEE9E71243F533B00ACA7FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBEE9E78243F533B00ACA7FB /* ResourceCryptorTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -290,6 +358,11 @@
 			isa = PBXTargetDependency;
 			target = CBEE9E2D243EB68000ACA7FB /* ResourceCryptor */;
 			targetProxy = CBEE9E60243EBC4A00ACA7FB /* PBXContainerItemProxy */;
+		};
+		CBEE9E7C243F533B00ACA7FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CBEE9E2D243EB68000ACA7FB /* ResourceCryptor */;
+			targetProxy = CBEE9E7B243F533B00ACA7FB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -509,6 +582,40 @@
 			};
 			name = Release;
 		};
+		CBEE9E7E243F533B00ACA7FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FFX6ABGTP4;
+				INFOPLIST_FILE = ResourceCryptorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Teng.ResourceCryptorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CBEE9E7F243F533B00ACA7FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FFX6ABGTP4;
+				INFOPLIST_FILE = ResourceCryptorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Teng.ResourceCryptorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -535,6 +642,15 @@
 			buildConfigurations = (
 				CBEE9E58243EBB8C00ACA7FB /* Debug */,
 				CBEE9E59243EBB8C00ACA7FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CBEE9E7D243F533B00ACA7FB /* Build configuration list for PBXNativeTarget "ResourceCryptorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBEE9E7E243F533B00ACA7FB /* Debug */,
+				CBEE9E7F243F533B00ACA7FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

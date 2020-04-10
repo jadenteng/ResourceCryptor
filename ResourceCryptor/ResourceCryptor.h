@@ -7,49 +7,96 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "R_SA.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ResourceCryptor : NSObject
+/// key 加密密钥 iv IV向量
+typedef NSData *_Nullable(^CRYPTOR_BLOCK)(NSString *key, NSString *iv);
+/// key 加密密钥 iv IV向量
+typedef NSString *_Nullable(^CRYPTOR_STR_BLOCK)(NSString *key, NSString *iv);
+/// SHAHMAC key 加密密钥
+typedef NSString *_Nullable(^k_CCHmacAlgSHA_block)(NSString *key);
 
-#pragma mark - RSA 加密/解密算法
+#pragma mark - NSData AES DES 加密 解密
+@interface NSData (ResourceCryptor)
 
-+ (instancetype)share;
-/// 加载公钥
-/// @param path  DER 公钥文件路径
-- (void)rsa_public_key_path:(NSString *)path;
-- (void)rsa_public_key:(NSString *)key;
-/// 加载私钥
-/// @param path P12 私钥文件路径
-/// @param pwd P12 密码
-- (void)rsa_private_key_path:(NSString *)path pwd:(NSString *)pwd;
-- (void)rsa_private_key:(NSString *)key;
+/// DES 加密  key 加密密钥 iv  IV向量
+@property (nonatomic,assign,readonly) CRYPTOR_BLOCK EN_DES;
+/// DES 解密  key 解密密钥 iv  IV向量
+@property (nonatomic,assign,readonly) CRYPTOR_BLOCK DE_DES;
+/// AES 加密  key 加密密钥 iv  IV向量
+@property (nonatomic,assign,readonly) CRYPTOR_BLOCK EN_AES;
+/// AES 解密  key 解密密钥 iv  IV向量
+@property (nonatomic,assign,readonly) CRYPTOR_BLOCK DE_AES;
 
-/// RSA 加密数据
-/// @param data 加密后的二进制数据
-- (NSData *)RSA_EN_Data:(NSData *)data;
+/// data 转换为 json
+@property (nonatomic,assign,readonly) id _Nonnull JSON_Object;
 
+@end
+#pragma mark - NSString AES DES 加密 解密 MD5 SHA256
 
-///  RSA 加密字符串
-/// @param string 要加密的字符串
-- (NSString *)RSA_EN_String:(NSString *)string;
+@interface NSString (ResourceCryptor)
 
+/// DES 加密  key 加密密钥 iv  IV向量
+@property (nonatomic,assign,readonly) CRYPTOR_STR_BLOCK EN_DES;
+/// DES 解密  key 解密密钥 iv  IV向量
+@property (nonatomic,assign,readonly) CRYPTOR_STR_BLOCK DE_DES;
+/// AES 加密  key 加密密钥 iv  IV向量
+@property (nonatomic,assign,readonly) CRYPTOR_STR_BLOCK EN_AES;
+/// AES 解密  key 解密密钥 iv  IV向量
+@property (nonatomic,assign,readonly) CRYPTOR_STR_BLOCK DE_AES;
+/// MD5加密
+@property (nonatomic,assign,readonly)NSString *MD_5;
+/// SHA_1 加密
+@property (nonatomic,assign,readonly)NSString *SHA_1;
+/// SHA_256 加密
+@property (nonatomic,assign,readonly)NSString *SHA_256;
+/// SHA_224 加密
+@property (nonatomic,assign,readonly)NSString *SHA_224;
+/// SHA_384 加密
+@property (nonatomic,assign,readonly)NSString *SHA_384;
+/// SHA_512 加密
+@property (nonatomic,assign,readonly)NSString *SHA_512;
 
-/// RSA 解密数据
-/// @param data 要解密的数据
-- (NSData *)RSA_DE_Data:(NSData *)data;
-
-
-/// RSA 解密字符串
-/// @param string 要解密的 BASE64 编码字符串
-- (NSString *)RSA_DE_String:(NSString *)string;
+/// HMAC加密
+/// SHA_256 by:key 加密
+@property (nonatomic,assign,readonly)k_CCHmacAlgSHA_block SHA_256_HMAC_block;
+/// SHA_MD5 by:key 加密密钥
+@property (nonatomic,assign,readonly)k_CCHmacAlgSHA_block SHA_MD5_HMAC_block;
+/// SHA_1 by:key   加密密钥
+@property (nonatomic,assign,readonly)k_CCHmacAlgSHA_block SHA_1_HMAC_block;
+/// SHA_224 by:key 加密密钥
+@property (nonatomic,assign,readonly)k_CCHmacAlgSHA_block SHA_224_HMAC_block;
+/// SHA_384 by:key 加密密钥
+@property (nonatomic,assign,readonly)k_CCHmacAlgSHA_block SHA_384_HMAC_block;
+/// SHA_512 by:key 加密密钥
+@property (nonatomic,assign,readonly)k_CCHmacAlgSHA_block SHA_512_HMAC_block;
 
 @end
 
 
-@interface NSData (ResourceCryptor)
+@interface NSString (Conversion)
+/// string to base64 string
+@property (nonatomic,assign,readonly)NSString *base_64;
+/// base64 转换为 普通string
+@property (nonatomic,assign,readonly)NSString *encoding_base64;
+/// base64string to base64 data
+@property (nonatomic,assign,readonly)NSData *base_64_data;
+/// string to utf8 data
+@property (nonatomic,assign,readonly)NSData *utf_8; //
+@end
+@interface NSData (Conversion)
+/// base64data string
+@property (nonatomic,assign,readonly)NSString *base64_encoded_string;
+/// data 转换为utf8
+@property (nonatomic,assign,readonly)NSString *encoding_base64_UTF8StringEncoding;
+@end
 
-#pragma mark - DES 加密/解密
+@interface NSDictionary (Conversion)
+@property (nonatomic,assign,readonly) NSData *json_Data;
+@end
+@interface NSData (Private)
 
 /// DES 加密
 /// @param key 加密密钥
@@ -61,7 +108,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param iv  IV向量
 - (NSData *)DES_DE:(NSString *)key iv:(NSString *)iv;
 
-#pragma mark - AES 加密/解密
 
 /// AES 加密
 /// @param key 加密密钥
@@ -73,17 +119,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param iv  IV向量
 - (NSData *)AES_DE:(NSString *)key iv:(NSString *)iv;
 
+
 @end
 
-typedef NSString *_Nullable(^CC_SHA256Block)(NSString *key);
+@interface NSString (Private)
 
-@interface NSString (ResourceCryptor)
-
-/// MD5加密
-@property (nonatomic,assign,readonly)NSString *MD_5;
-@property (nonatomic,assign,readonly)NSString *SHA_256;
-/// SHA_256 by:key 加密
-@property (nonatomic,assign,readonly)CC_SHA256Block SHA_256_block;
 /// AES 加密
 /// @param key 加密密钥
 /// @param iv  IV向量
@@ -105,20 +145,6 @@ typedef NSString *_Nullable(^CC_SHA256Block)(NSString *key);
 
 @end
 
-@interface NSString (Conversion)
-/// string to base64 string
-@property (nonatomic,assign,readonly)NSString *base_64;
-/// base64 转换为 普通string
-@property (nonatomic,assign,readonly)NSString *encoding_base64;
-/// string to base64 data
-@property (nonatomic,assign,readonly)NSData *base_64_data;
-/// string to utf8 data
-@property (nonatomic,assign,readonly)NSData *utf_8; //
-@end
-@interface NSData (Conversion)
-/// base64 string
-@property (nonatomic,assign,readonly)NSString *base64_encoded_string;
-/// data 转换为utf8
-@property (nonatomic,assign,readonly)NSString *encoding_base64_UTF8StringEncoding;
-@end
+
+
 NS_ASSUME_NONNULL_END
