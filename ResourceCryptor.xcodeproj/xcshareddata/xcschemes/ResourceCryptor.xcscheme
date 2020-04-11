@@ -28,20 +28,6 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CBEE9E40243EBB8700ACA7FB"
-               BuildableName = "ResourceCryptorExample.app"
-               BlueprintName = "ResourceCryptorExample"
-               ReferencedContainer = "container:ResourceCryptor.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "CBEE9E74243F533B00ACA7FB"
                BuildableName = "ResourceCryptorTests.xctest"
                BlueprintName = "ResourceCryptorTests"
@@ -56,6 +42,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CBEE9E74243F533B00ACA7FB"
+               BuildableName = "ResourceCryptorTests.xctest"
+               BlueprintName = "ResourceCryptorTests"
+               ReferencedContainer = "container:ResourceCryptor.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
