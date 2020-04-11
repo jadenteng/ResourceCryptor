@@ -1,0 +1,6 @@
+framework module ResourceCryptor {
+  umbrella header "ResourceCryptor.h"
+
+  export *
+  module * { export * }
+}
