@@ -11,6 +11,7 @@ dependencies:
 script:
     - xcodebuild -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug test
 after_success:
+  - sleep 5
   - bash <(curl -s https://codecov.io/bash) -F ResourceCryptor
   
 notifications:
