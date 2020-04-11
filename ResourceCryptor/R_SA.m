@@ -43,7 +43,6 @@ static R_SA *shareInstance = nil;
     return list;
 }
 
-
 @end
 
 @implementation R_SA
@@ -123,85 +122,54 @@ static R_SA *shareInstance = nil;
 }
 
 - (NSData *)RSA_EN_Data:(NSData *)data {
-    OSStatus sanityCheck = noErr;
-    size_t cipherBufferSize = 0;
-    size_t keyBufferSize = 0;
-    
-    NSAssert(data, @"data == nil");
-    NSAssert(_publicKeyRef, @"_publicKeyRef == nil");
-    
-    NSData *cipher = nil;
-    uint8_t *cipherBuffer = NULL;
-    
-    // 计算缓冲区大小
-    cipherBufferSize = SecKeyGetBlockSize(_publicKeyRef);
-    keyBufferSize = data.length;
-    
-    if (kTypeOfWrapPadding == kSecPaddingNone) {
-        NSAssert(keyBufferSize <= cipherBufferSize, @"EN too large");
-    }
-    
-    // 分配缓冲区
-    cipherBuffer = malloc(cipherBufferSize * sizeof(uint8_t));
-    memset((void *)cipherBuffer, 0x0, cipherBufferSize);
-    
-    // 使用公钥加密
-    sanityCheck = SecKeyEncrypt(_publicKeyRef,
-                                kTypeOfWrapPadding,
-                                (const uint8_t *)data.bytes,
-                                keyBufferSize,
-                                cipherBuffer,
-                                &cipherBufferSize
-                                );
-    
-    NSAssert(sanityCheck == noErr, @"EN error，OSStatus == %d", sanityCheck);
-    
-    // 生成密文数据
-    cipher = [NSData dataWithBytes:(const void *)cipherBuffer length:(NSUInteger)cipherBufferSize];
-    
-    if (cipherBuffer) free(cipherBuffer);
-    
-    return cipher;
+    return [self secKeyCryptData:data isEn:YES];
 }
 
-- (NSData *)RSA_DE_Data:(NSData *)data {
-    OSStatus sanityCheck = noErr;
-    size_t cipherBufferSize = 0;
-    size_t keyBufferSize = 0;
+- (NSData *)secKeyCryptData:(NSData *)data isEn:(BOOL)isEn {
     
-    NSData *key = nil;
-    uint8_t *keyBuffer = NULL;
+    OSStatus status = noErr;
     
-    SecKeyRef privateKey = _privateKeyRef;
-    NSAssert(privateKey != NULL, @"_privateKeyRef == nil");
+    size_t textLen1 = 0; // en -> cipherTextLen  de->plainTextLen
+    size_t textLen2 = 0; // en -> plainTextLen   de->cipherTextLen
+    
+    uint8_t *uint8_tBuffer = NULL;
+    SecKeyRef seckeyRef = isEn ? _publicKeyRef : _privateKeyRef;
     
     // 计算缓冲区大小
-    cipherBufferSize = SecKeyGetBlockSize(privateKey);
-    keyBufferSize = data.length;
+    textLen1 = SecKeyGetBlockSize(seckeyRef);
+    textLen2 = data.length;
     
-    NSAssert(keyBufferSize <= cipherBufferSize, @"DE  too large");
-    
+    NSUInteger memset_len = isEn ? textLen1: textLen2;
     // 分配缓冲区
-    keyBuffer = malloc(keyBufferSize * sizeof(uint8_t));
-    memset((void *)keyBuffer, 0x0, keyBufferSize);
+    uint8_tBuffer = malloc(memset_len * sizeof(uint8_t));
+    memset((void *)uint8_tBuffer, 0x0, memset_len);
     
-    // 使用私钥解密
-    sanityCheck = SecKeyDecrypt(privateKey,
-                                kTypeOfWrapPadding,
-                                (const uint8_t *)data.bytes,
-                                cipherBufferSize,
-                                keyBuffer,
-                                &keyBufferSize
-                                );
+    // 使用公钥加密
+    status = isEn ? SecKeyEncrypt(seckeyRef,
+                                  kTypeOfWrapPadding,
+                                  (const uint8_t *)data.bytes,
+                                  textLen2,
+                                  uint8_tBuffer,
+                                  &textLen1
+                                  ) : SecKeyDecrypt(seckeyRef,
+                                                    kTypeOfWrapPadding,
+                                                    (const uint8_t *)data.bytes,
+                                                    textLen1,
+                                                    uint8_tBuffer,
+                                                    &textLen2
+                                                    );
     
-    NSAssert1(sanityCheck == noErr, @"DE error，OSStatus == %d", sanityCheck);
+    NSAssert(status == noErr, @"EN error，OSStatus == %d", status);
+    NSUInteger len = isEn ? textLen1: textLen2;
+    // 生成密文或明文数据
+    NSData  *datas = [NSData dataWithBytes:(const void *)uint8_tBuffer length:len];
     
-    // 生成明文数据
-    key = [NSData dataWithBytes:(const void *)keyBuffer length:(NSUInteger)keyBufferSize];
+    if (uint8_tBuffer) free(uint8_tBuffer);
     
-    if (keyBuffer) free(keyBuffer);
-    
-    return key;
+    return datas;
+}
+- (NSData *)RSA_DE_Data:(NSData *)data {
+    return [self secKeyCryptData:data isEn:NO];
 }
 
 - (void)rsa_public_key_path:(NSString *)path; {
@@ -233,20 +201,20 @@ static R_SA *shareInstance = nil;
     if (trustRef) CFRelease(trustRef);
 }
 
-    // 信任结果
-    // 评估指定证书和策略的信任管理是否有效
-    //#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_10_3
+// 信任结果
+// 评估指定证书和策略的信任管理是否有效
+//#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_10_3
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (void)vaildTrustRef:(SecTrustRef)trustRef {
     // 评估指定证书和策略的信任管理是否有效
-     if (@available(iOS 12, macOS 10.14, tvOS 12, watchOS 5, *)) {
-         CFErrorRef error;
-         if (SecTrustEvaluateWithError(trustRef,&error) == NO){}
-     } else {
-         SecTrustResultType trustResult;
-         SecTrustEvaluate(trustRef, &trustResult);
-     }
+    if (@available(iOS 12, macOS 10.14, tvOS 12, watchOS 5, *)) {
+        CFErrorRef error;
+        if (SecTrustEvaluateWithError(trustRef,&error) == NO){}
+    } else {
+        SecTrustResultType trustResult;
+        SecTrustEvaluate(trustRef, &trustResult);
+    }
 }
 
 - (void)rsa_private_key_path:(NSString *)path pwd:(NSString *)pwd {
@@ -270,7 +238,7 @@ static R_SA *shareInstance = nil;
     OSStatus status = SecPKCS12Import(inPKCS12Data, optionsDictionary, &items);
     CFDictionaryRef myIdentityAndTrust = CFArrayGetValueAtIndex(items, 0);
     myIdentity = (SecIdentityRef)CFDictionaryGetValue(myIdentityAndTrust, kSecImportItemIdentity);
-     
+    
     SecTrustRef trustRef;
     trustRef = (SecTrustRef)CFDictionaryGetValue(myIdentityAndTrust, kSecImportItemTrust);
     
@@ -279,7 +247,7 @@ static R_SA *shareInstance = nil;
     
     // 评估指定证书和策略的信任管理是否有效
     [self vaildTrustRef:trustRef];
-
+    
     // 提取私钥
     status = SecIdentityCopyPrivateKey(myIdentity, &_privateKeyRef);
     NSAssert(status == errSecSuccess, @"私钥创建失败");
@@ -301,6 +269,7 @@ static R_SA *shareInstance = nil;
     
     // Delete any old lingering key with the same tag
     NSMutableDictionary *keyAttr = [NSMutableDictionary new];
+    
     [keyAttr setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
     [keyAttr setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
     [keyAttr setObject:d_tag forKey:(__bridge id)kSecAttrApplicationTag];
@@ -309,6 +278,7 @@ static R_SA *shareInstance = nil;
     
     // Add persistent version of the key to system keychain
     CFStringRef cfref = isPublic ?  kSecAttrKeyClassPublic :  kSecAttrKeyClassPrivate;
+    
     [keyAttr setObject:data forKey:(__bridge id)kSecValueData];
     [keyAttr setObject:(__bridge id)cfref forKey:(__bridge id)
      kSecAttrKeyClass];
@@ -317,12 +287,8 @@ static R_SA *shareInstance = nil;
     
     CFTypeRef persistPeer = nil;
     OSStatus status = SecItemAdd((__bridge CFDictionaryRef)keyAttr, &persistPeer);
-    if (persistPeer != nil){
+    if (persistPeer)
         CFRelease(persistPeer);
-    }
-    if ((status != noErr) && (status != errSecDuplicateItem)) {
-        return ;
-    }
     
     [keyAttr removeObjectForKey:(__bridge id)kSecValueData];
     [keyAttr removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
