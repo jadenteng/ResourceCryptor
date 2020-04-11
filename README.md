@@ -3,7 +3,7 @@
 <img src="https://github.com/JadenTeng/ResourceCryptor/blob/master/banner.jpg" width="555"/>
 </p>
 
-# ResourceCryptor
+# ResourceCryptor 开发中.... 待续
 
 * RSA & AES & DES  Simplest NSData、NSString Category of  on iOS  SSL/TLS自签
 
