@@ -13,24 +13,7 @@
 > RSA  1
 ```objective-c
 
-    NSString *pem = @"expmle"; //使用RSA公钥加密的key(本地或者服务器获取)
-    
-   ///获取ResourceCryptor单例
-   ResourceCryptor *cryptor = [ResourceCryptor share];
    
-   // 1:加载公钥
-   [cryptor rsa_public_key:pubkey];
-   
-   // 2:使用公钥加密
-   NSString *en_str = [cryptor RSA_EN_String:pem];
-
-   // 3:加载私钥
-   [cryptor rsa_private_key:privkey];
-   
-   // 4:使用私钥解密
-   NSString *de_data = [cryptor RSA_DE_String:en_str];
-   
-   NSLog(@"解密结果 %@", de_data);
 
 ```
 
@@ -38,18 +21,7 @@
 
 ```objective-c
 
-       //1:加载公钥
-       [cryptor rsa_public_key_path:[[NSBundle mainBundle] pathForResource:@"rsacert.der" ofType:nil]];
-       
-       //2:使用公钥加密
-       NSString *en_str = [cryptor RSA_EN_String:pem];
-       NSLog(@"加密后结果:%@",en_str);
-       
-       //3:加载私钥,并且指定导出p12时设定的密码
-       [cryptor rsa_private_key_path:[[NSBundle mainBundle] pathForResource:@"p.p12" ofType:nil] pwd:@"123456"];
-       
-       //4: 使用私钥解密
-       NSString *de_data = [cryptor RSA_DE_String:en_str];
+     
 
 ```
 
@@ -57,9 +29,5 @@
 
 ```objective-c
      
-       NSString *str = @"hello !";
-       // 1.加密
-       NSString *en_str = [str DES_EN:key iv:iv];
-       // 2.解密
-       NSString *de_str = [en_str DES_DE:key iv:iv];
+    
 ```
