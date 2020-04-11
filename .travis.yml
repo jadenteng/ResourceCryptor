@@ -1,0 +1,15 @@
+os: osx
+language: objective-c
+osx_image: xcode11.3.1
+env:
+- DESTINATION="OS=13.0,name=iPhone 11" SCHEME="ResourceCryptor" SDK=iphonesimulator CODECOV_TOKEN=e3f38d6b-fc35-4e17-8478-dc2a50d1faff
+dependencies:
+  pre:
+    - xcrun instruments -w 'iPhone X (13.2)' || sleep 15
+script:
+  xcodebuild -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug test
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -F ResourceCryptor
+notifications:
+  email:
+    - 781232284@qq.com
