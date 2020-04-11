@@ -190,7 +190,10 @@ static R_SA *shareInstance = nil;
     
     // 基于证书和策略创建一个信任管理对象
     OSStatus status = SecTrustCreateWithCertificates(certificateRef, policyRef, &trustRef);
-    NSAssert(status == errSecSuccess, @"创建信任管理对象失败");
+    if (status == errSecSuccess) {
+        
+    }
+   
     [self vaildTrustRef:trustRef];
     // 评估之后返回公钥子证书
     _publicKeyRef = SecTrustCopyPublicKey(trustRef);
