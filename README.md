@@ -7,7 +7,10 @@
 <a href="https://github.com/JadenTeng/ResourceCryptor">
 <img src="https://travis-ci.com/JadenTeng/ResourceCryptor.svg?branch=master">
 </a>
-   
+   <a href="https://github.com/JadenTeng/ResourceCryptor">
+<img src="https://codecov.io/gh/JadenTeng/ResourceCryptor/branch/master/graph/badge.svg">
+</a>
+
 </P>
 
 
