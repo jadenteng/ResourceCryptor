@@ -28,6 +28,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CB10A1562441A5CF00D24018 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CBEE9E25243EB68000ACA7FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CBEE9E40243EBB8700ACA7FB;
+			remoteInfo = ResourceCryptorExample;
+		};
 		CBEE9E60243EBC4A00ACA7FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CBEE9E25243EB68000ACA7FB /* Project object */;
@@ -246,6 +253,7 @@
 			);
 			dependencies = (
 				CBEE9E7C243F533B00ACA7FB /* PBXTargetDependency */,
+				CB10A1572441A5CF00D24018 /* PBXTargetDependency */,
 			);
 			name = ResourceCryptorTests;
 			productName = ResourceCryptorTests;
@@ -269,6 +277,7 @@
 					};
 					CBEE9E74243F533B00ACA7FB = {
 						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = CBEE9E40243EBB8700ACA7FB;
 					};
 				};
 			};
@@ -354,6 +363,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		CB10A1572441A5CF00D24018 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CBEE9E40243EBB8700ACA7FB /* ResourceCryptorExample */;
+			targetProxy = CB10A1562441A5CF00D24018 /* PBXContainerItemProxy */;
+		};
 		CBEE9E61243EBC4A00ACA7FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CBEE9E2D243EB68000ACA7FB /* ResourceCryptor */;
@@ -585,6 +599,7 @@
 		CBEE9E7E243F533B00ACA7FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FFX6ABGTP4;
 				INFOPLIST_FILE = ResourceCryptorTests/Info.plist;
@@ -596,12 +611,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Teng.ResourceCryptorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ResourceCryptorExample.app/ResourceCryptorExample";
 			};
 			name = Debug;
 		};
 		CBEE9E7F243F533B00ACA7FB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FFX6ABGTP4;
 				INFOPLIST_FILE = ResourceCryptorTests/Info.plist;
@@ -613,6 +630,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Teng.ResourceCryptorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ResourceCryptorExample.app/ResourceCryptorExample";
 			};
 			name = Release;
 		};

@@ -1,16 +1,16 @@
 os: osx
 language: objective-c
 osx_image: xcode11.3
-xcode_project: ResourceCryptor.xcodeproj # path to your xcodeproj folder
-xcode_scheme: ResourceCryptor
-xcode_destination: platform=iOS Simulator,OS=13.3,name=iPhone 11
+#xcode_project: ResourceCryptor.xcodeproj # path to your xcodeproj folder
+#xcode_scheme: ResourceCryptor
+#xcode_destination: platform=iOS Simulator,OS=13.3,name=iPhone 11
 
-script:
-- carthage update --platform iOS
-- xcodebuild -scheme ResourceCryptorTests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.3' test
+#script:
+#- carthage update --platform iOS
+#- xcodebuild -scheme ResourceCryptorTests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.3' test
 
 env:
-- DESTINATION="OS=13.3,name=iPhone 11" SCHEME="ResourceCryptorTests" SDK=iphonesimulator CODECOV_TOKEN=e3f38d6b-fc35-4e17-8478-dc2a50d1faff
+- DESTINATION="OS=13.3,name=iPhone 11" SCHEME="ResourceCryptor" SDK=iphonesimulator CODECOV_TOKEN=e3f38d6b-fc35-4e17-8478-dc2a50d1faff
 dependencies:
 pre:
   - xcrun instruments -w 'iPhone 11 (13.3)' || sleep 15
