@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="https://github.com/JadenTeng/ResourceCryptor/master/banner@2x.jpg" alt="ResourceCryptor" title="ResourceCryptor" width="555"/>
+<img src="https://github.com/JadenTeng/ResourceCryptor/banner@2x.jpg"/>
 </p>
 
 # ResourceCryptor
