@@ -51,6 +51,7 @@ static R_SA *shareInstance = nil;
     SecKeyRef _privateKeyRef;                            // 私钥引用
 }
 
+
 @end
 
 @implementation R_SA
@@ -181,8 +182,7 @@ static R_SA *shareInstance = nil;
 }
 
 - (void)rsa_public_key_path:(NSString *)path; {
-    
-    NSAssert(path.length != 0, @"公钥路径为空");
+
     // 删除当前公钥
     if (_publicKeyRef) CFRelease(_publicKeyRef);
     
@@ -202,7 +202,6 @@ static R_SA *shareInstance = nil;
     [self vaildTrustRef:trustRef];
     // 评估之后返回公钥子证书
     _publicKeyRef = SecTrustCopyPublicKey(trustRef);
-    NSAssert(_publicKeyRef != NULL, @"公钥创建失败");
     
     if (certificateRef) CFRelease(certificateRef);
     if (policyRef) CFRelease(policyRef);
@@ -224,41 +223,39 @@ static R_SA *shareInstance = nil;
         SecTrustEvaluate(trustRef, &trustResult);
     }
 }
-
+- (CFDictionaryRef)CFDictionaryCreateBy:(NSString *)pwd {
+    CFStringRef passwordRef = (__bridge CFStringRef)pwd;
+    const void *keys[] = {kSecImportExportPassphrase};
+    const void *values[] = {passwordRef};
+    return CFDictionaryCreate(NULL, keys, values, 1, NULL, NULL);
+}
 - (void)rsa_private_key_path:(NSString *)path pwd:(NSString *)pwd {
     
-    NSAssert(path.length != 0, @"私钥路径为空");
     // 删除当前私钥
     if (_privateKeyRef) CFRelease(_privateKeyRef);
     
     NSData *PKCS12Data = [NSData dataWithContentsOfFile:path];
     CFDataRef inPKCS12Data = (__bridge CFDataRef)PKCS12Data;
-    CFStringRef passwordRef = (__bridge CFStringRef)pwd;
-    
     // 从 PKCS #12 证书中提取标示和证书
-    SecIdentityRef myIdentity;
-    const void *keys[] = {kSecImportExportPassphrase};
-    const void *values[] = {passwordRef};
-    CFDictionaryRef optionsDictionary = CFDictionaryCreate(NULL, keys, values, 1, NULL, NULL);
+    SecIdentityRef myIdentity;   
+    CFDictionaryRef optionsDictionary = [self CFDictionaryCreateBy:pwd];
     CFArrayRef items = CFArrayCreate(NULL, 0, 0, NULL);
     
     // 返回 PKCS #12 格式数据中的标示和证书
     OSStatus status = SecPKCS12Import(inPKCS12Data, optionsDictionary, &items);
     CFDictionaryRef myIdentityAndTrust = CFArrayGetValueAtIndex(items, 0);
+    
     myIdentity = (SecIdentityRef)CFDictionaryGetValue(myIdentityAndTrust, kSecImportItemIdentity);
     
     SecTrustRef trustRef;
     trustRef = (SecTrustRef)CFDictionaryGetValue(myIdentityAndTrust, kSecImportItemTrust);
     
     if (optionsDictionary) CFRelease(optionsDictionary);
-    NSAssert(status == noErr, @"提取身份和信任失败");
-    
     // 评估指定证书和策略的信任管理是否有效
     [self vaildTrustRef:trustRef];
     
     // 提取私钥
     status = SecIdentityCopyPrivateKey(myIdentity, &_privateKeyRef);
-    NSAssert(status == errSecSuccess, @"私钥创建失败");
     CFRelease(items);
 }
 
@@ -269,51 +266,38 @@ static R_SA *shareInstance = nil;
     
     //a tag to read/write keychain storage
     NSString *tag = isPublic ? @"RSA_PubKey" : @"RSA_PrivKey";
-    NSData *d_tag = [NSData dataWithBytes:[tag UTF8String] length:[tag length]];
-    
-    // Delete any old lingering key with the same tag
-    NSMutableDictionary *keyAttr = [NSMutableDictionary new];
-    
-    [keyAttr setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
-    [keyAttr setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
-    [keyAttr setObject:d_tag forKey:(__bridge id)kSecAttrApplicationTag];
-    
+    NSMutableDictionary *keyAttr = [self secRefKey:tag];
     SecItemDelete((__bridge CFDictionaryRef)keyAttr);
-    
     // Add persistent version of the key to system keychain
     CFStringRef cfref = isPublic ?  kSecAttrKeyClassPublic :  kSecAttrKeyClassPrivate;
     
-    [keyAttr setObject:data forKey:(__bridge id)kSecValueData];
-    [keyAttr setObject:(__bridge id)cfref forKey:(__bridge id)
-     kSecAttrKeyClass];
-    [keyAttr setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)
-     kSecReturnPersistentRef];
-    
+    [self addCFDictionaryRef:keyAttr data:data cfref:cfref];
     CFTypeRef persistPeer = nil;
-    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)keyAttr, &persistPeer);
+    SecItemAdd((__bridge CFDictionaryRef)keyAttr, &persistPeer);
     if (persistPeer)
         CFRelease(persistPeer);
     
-    [keyAttr removeObjectForKey:(__bridge id)kSecValueData];
-    [keyAttr removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
+    [self reloadCFDictionaryRef:keyAttr];
+    [self reload:isPublic keyAttr:keyAttr];
     
-    [keyAttr setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
-    [keyAttr setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
-    
-    if (isPublic) {
-        // 删除当前公钥
-        if (_publicKeyRef) CFRelease(_publicKeyRef);
-        // Now fetch the SecKeyRef version of the key
-        _publicKeyRef = nil;
-        status = SecItemCopyMatching((__bridge CFDictionaryRef)keyAttr, (CFTypeRef *)&_publicKeyRef);
-    } else {
-        // 删除当前私钥
-        if (_privateKeyRef) CFRelease(_privateKeyRef);
-        // Now fetch the SecKeyRef version of the key
-        _privateKeyRef = nil;
-        status = SecItemCopyMatching((__bridge CFDictionaryRef)keyAttr, (CFTypeRef *)&_privateKeyRef);
-    }
 }
+
+- (void)reload:(BOOL)isPublic keyAttr:(NSMutableDictionary *)keyAttr {
+    if (isPublic) {
+           // 删除当前公钥
+           if (_publicKeyRef) CFRelease(_publicKeyRef);
+           // Now fetch the SecKeyRef version of the key
+           _publicKeyRef = nil;
+            SecItemCopyMatching((__bridge CFDictionaryRef)keyAttr, (CFTypeRef *)&_publicKeyRef);
+       } else {
+           // 删除当前私钥
+           if (_privateKeyRef) CFRelease(_privateKeyRef);
+           // Now fetch the SecKeyRef version of the key
+           _privateKeyRef = nil;
+            SecItemCopyMatching((__bridge CFDictionaryRef)keyAttr, (CFTypeRef *)&_privateKeyRef);
+       }
+}
+
 - (void)rsa_private_key:(NSString *)key {
     [self createKey:key isPublic:NO];
 }
@@ -321,4 +305,29 @@ static R_SA *shareInstance = nil;
     [self createKey:key isPublic:YES];
 }
 
+- (NSMutableDictionary *)secRefKey:(NSString *)key {
+    NSData *d_tag = [NSData dataWithBytes:[key UTF8String] length:[key length]];
+    NSMutableDictionary *keyAttr = [NSMutableDictionary new];
+    [keyAttr setObject:(__bridge id) kSecClassKey forKey:(__bridge id)kSecClass];
+       [keyAttr setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+       [keyAttr setObject:d_tag forKey:(__bridge id)kSecAttrApplicationTag];
+    return keyAttr;
+}
+
+- (void)addCFDictionaryRef:(NSMutableDictionary *)keyChian data:(NSData *)data cfref:(CFStringRef)cfref{
+    [keyChian setObject:data forKey:(__bridge id)kSecValueData];
+    [keyChian setObject:(__bridge id)cfref forKey:(__bridge id)
+     kSecAttrKeyClass];
+    [keyChian setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)
+     kSecReturnPersistentRef];
+}
+- (void)reloadCFDictionaryRef:(NSMutableDictionary *)keyChian {
+    [keyChian removeObjectForKey:(__bridge id)kSecValueData];
+    [keyChian removeObjectForKey:(__bridge id)kSecReturnPersistentRef];
+    
+    [keyChian setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
+    [keyChian setObject:(__bridge id) kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+}
+
 @end
+
