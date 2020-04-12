@@ -13,6 +13,7 @@
 typedef NSData *_Nullable(^RSA_EN_DATA_BLOCK)(NSData *_Nullable data);
 typedef NSString *_Nullable(^RSA_EN_STR_BLOCK)(NSString *_Nullable str);
 typedef void(^R_SA_KEY_BLOCK)(NSString * _Nullable key);
+
 /// path加载路径 pwd p12密码
 typedef void(^R_SA_PRIVATEKEY_BLOCK)(NSString * _Nullable path,NSString * _Nullable pwd);
 

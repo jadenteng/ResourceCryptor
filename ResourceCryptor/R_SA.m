@@ -237,7 +237,8 @@ static R_SA *shareInstance = nil;
     NSData *PKCS12Data = [NSData dataWithContentsOfFile:path];
     CFDataRef inPKCS12Data = (__bridge CFDataRef)PKCS12Data;
     // 从 PKCS #12 证书中提取标示和证书
-    SecIdentityRef myIdentity;   
+    SecIdentityRef myIdentity;
+   
     CFDictionaryRef optionsDictionary = [self CFDictionaryCreateBy:pwd];
     CFArrayRef items = CFArrayCreate(NULL, 0, 0, NULL);
     

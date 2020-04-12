@@ -112,9 +112,9 @@ typedef BOOL (^Array_Filter_Block)(id );
             result[8], result[9], result[10], result[11], result[12], result[13], result[14], result[15]];
 }
 
-- (NSString *)md_5 {
-    return [self cc_stringUsingAlg:kCCHmacAlgMD5];
-}
+//- (NSString *)md_5 {
+//    return [self cc_stringUsingAlg:kCCHmacAlgMD5];
+//}
 - (NSString *)SHA_1{
     return [self cc_stringUsingAlg:kCCHmacAlgSHA1];
 }
