@@ -23,7 +23,7 @@
 
 </P>
 
-`ResourceCryptor` Simplest `RSA` `AES` `DES` encrypt / decrypt with Objective-C on iOS and  `MD5` `SHA_1` `SHA_256` `SHA_224` `SHA_512` and HMAC `HmacMD5``HmacSHA1_SHA224_SHA256_SHA384_SHA512` of NSData、NSString Category 
+`ResourceCryptor` Simplest `RSA` `AES` `DES` encrypt / decrypt with Objective-C on iOS and  `MD5` `SHA_1` `SHA_256` `SHA_224` `SHA_512` and HMAC `HmacMD5` `HmacSHA1_SHA224_SHA256_SHA384_SHA512` of NSData、NSString Category 
 
 ## Features
 - [x] Fully tested.
@@ -38,7 +38,7 @@
 * 使用RSA 加密解密提供了最简单的单例 `RSA_` 在库中的`R_SA.h` 
 * 提供常规AES DES加解密 SHA_256 MD5等... 在ResourceCryptor.h中
 
-#### * RSA* (encrypt)加密
+#### *RSA* (encrypt)加密
  RSA 公钥为String或der证书类型
 1. 加载RSA公钥 `add_pubKey`  or `add_pubPath`
 ```objective-c
