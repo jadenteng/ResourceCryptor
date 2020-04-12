@@ -183,11 +183,11 @@ XCTAssertEqualObjects(en,@"99f2a12918f5e0c7e21ef4759ecb8dd882c95af32a204ac83928a
     
     NSString *info_str = @"hello hello";
     // 1:加载公钥
-    RSA_.add_public_key(pubkey);
+    RSA_.add_pubKey(pubkey);
     // 2:使用公钥加密
     NSString *en_str = RSA_.EN_String(info_str);
     // 3:加载私钥
-    RSA_.add_private_key(privkey);
+    RSA_.add_privateKey(privkey);
     // 4:使用私钥解密
     NSString *DE = RSA_.DE_String(en_str);
     XCTAssertNotNil(en_str);
@@ -204,11 +204,11 @@ XCTAssertEqualObjects(en,@"99f2a12918f5e0c7e21ef4759ecb8dd882c95af32a204ac83928a
     NSDictionary *info_dic = @{@"key":@"num1"};
     NSData *data = info_dic.json_Data;
     // 1:加载公钥
-    RSA_.add_public_key(pubkey);
+    RSA_.add_pubKey(pubkey);
     // 2:使用公钥加密
     NSData *en_data = RSA_.EN_Data(data);
     // 3:加载私钥
-    RSA_.add_private_key(privkey);
+    RSA_.add_privateKey(privkey);
     // 4:使用私钥解密
     NSData *DE = RSA_.DE_Data(en_data);
     NSDictionary *json = DE.JSON_Object;

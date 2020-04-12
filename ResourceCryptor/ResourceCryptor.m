@@ -9,12 +9,36 @@
 #import "ResourceCryptor.h"
 #import <CommonCrypto/CommonCrypto.h>
 
-@interface NSString (HMAC)
+typedef BOOL (^Array_Filter_Block)(id );
 
+@interface NSString (HMAC)
 - (NSString *)cc_stringUsingAlg:(CCHmacAlgorithm)alg;
 - (NSString *)cc_hmacStringUsingAlg:(CCHmacAlgorithm)alg key:(NSString *)key;
-
 @end
+
+@interface NSString (Cryptor)
+@property (nonatomic,readonly)NSData *toHexData; ////转换 IV 向量
+@end
+@interface NSData (Cryptor)
+/// 对称加密&解密核心方法
+/// @param algorithm 加密算法
+/// @param operation 加密/解密操作
+/// @param key 密钥字符串
+/// @param iv IV 向量
+- (NSData *)CCAlgorithm:(CCAlgorithm)algorithm operation:(CCOperation)operation key:(NSString *)key iv:(NSData *)iv;
+@end
+
+@interface NSData (RSA)
+///RSA public_data
+@property (nonatomic,readonly,assign)NSData *rsa_public_data;
+///RSA private_data
+@property (nonatomic,readonly,assign)NSData *rsa_private_data;
+@end
+
+@interface NSArray (filter)
+- (NSMutableArray *)filter:(Array_Filter_Block)predicate;
+@end
+
 
 @implementation NSData (ResourceCryptor)
 
@@ -151,6 +175,7 @@
 
 @end
 
+#pragma mark - HMAC
 @implementation NSString (HMAC)
 
 - (NSString *)cc_stringUsingAlg:(CCHmacAlgorithm)alg {
@@ -188,7 +213,7 @@
 }
 
 - (NSString *)cc_hmacStringUsingAlg:(CCHmacAlgorithm)alg key:(NSString *)key {
-
+    
     const char *cKey  = [key cStringUsingEncoding:NSUTF8StringEncoding];
     const char *cData = [self cStringUsingEncoding:NSASCIIStringEncoding];
     size_t size;
@@ -215,31 +240,11 @@
 
 @end
 
-@interface NSData (Cryptor)
-/// 对称加密&解密核心方法
-/// @param algorithm 加密算法
-/// @param operation 加密/解密操作
-/// @param key 密钥字符串
-/// @param iv IV 向量
-- (NSData *)CCAlgorithm:(CCAlgorithm)algorithm operation:(CCOperation)operation key:(NSString *)key iv:(NSData *)iv;
-@end
-
-@interface NSData (RSA)
-///RSA public_data
-@property (nonatomic,readonly,assign)NSData *rsa_public_data;
-///RSA private_data
-@property (nonatomic,readonly,assign)NSData *rsa_private_data;
-@end
-
-@interface NSString (Cryptor)
-@property (nonatomic,readonly)NSData *toHexData; ////转换 IV 向量
-@end
-
+#pragma mark - Cryptor
 ///加密算法
 @implementation NSData (Cryptor)
 
-#pragma mark 对称加密&解密核心方法
-
+/// 对称加密&解密核心方法
 - (NSData *)CCAlgorithm:(CCAlgorithm)algorithm operation:(CCOperation)operation key:(NSString *)key iv:(NSData *)iv {
     
     int keySize = (algorithm == kCCAlgorithmAES) ? kCCKeySizeAES128 : kCCKeySizeDES;
@@ -307,6 +312,8 @@
 }
 
 @end
+
+#pragma mark - Conversion  (NSString NSData)
 @implementation  NSString (Conversion)
 
 /// 转换为base_64 string
@@ -327,15 +334,18 @@
     return [self dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-@end
-
-@implementation NSDictionary (Conversion)
-
-- (NSData *)json_Data {
-    return [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil];
+- (NSData *)rsa_data {
+    
+    NSArray *list = [[self componentsSeparatedByString:@"\n"] filter:^BOOL(NSString *line) {
+        return ![line hasPrefix:@"-----BEGIN"] && ![line hasPrefix:@"-----END"];
+    }];
+    // This will be base64 encoded, decode it.
+    NSData *data = [list componentsJoinedByString:@""].base_64_data;
+    return data;
 }
 
 @end
+
 
 @implementation  NSData (Conversion)
 
@@ -347,7 +357,6 @@
 - (NSString *)encoding_base64_UTF8StringEncoding {
     return [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
 }
-
 
 @end
 
@@ -463,4 +472,23 @@
 }
 
 
+@end
+
+@implementation NSArray (filter)
+
+- (NSMutableArray *)filter:(Array_Filter_Block)predicate {
+    NSMutableArray *list = [NSMutableArray arrayWithCapacity:self.count];
+    [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (predicate(obj)) {
+            [list addObject:obj];
+        }
+    }];
+    return list;
+}
+@end
+
+@implementation NSDictionary (Conversion)
+- (NSData *)json_Data {
+    return [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil];
+}
 @end

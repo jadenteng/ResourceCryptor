@@ -85,6 +85,9 @@ typedef NSString *_Nullable(^k_CCHmacAlgSHA_block)(NSString *key);
 @property (nonatomic,assign,readonly)NSData *base_64_data;
 /// string to utf8 data
 @property (nonatomic,assign,readonly)NSData *utf_8; //
+/// RSA string to data
+@property (nonatomic,assign,readonly)NSData *rsa_data; //
+
 @end
 @interface NSData (Conversion)
 /// base64data string

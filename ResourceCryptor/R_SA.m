@@ -10,15 +10,38 @@
 #import <CommonCrypto/CommonCrypto.h>
 #import "ResourceCryptor.h"
 
-// 填充模式
-#define kTypeOfWrapPadding        kSecPaddingPKCS1
-typedef BOOL (^Array_Filter_Block)(id );
+@interface R_SA (Private)
+/// 加载公钥
+/// @param path  DER 公钥文件路径
+- (void)rsa_public_key_path:(NSString *)path;
+- (void)rsa_public_key:(NSString *)key;
+/// 加载私钥
+/// @param path P12 私钥文件路径
+/// @param pwd P12 密码
+- (void)rsa_private_key_path:(NSString *)path pwd:(NSString *)pwd;
+- (void)rsa_private_key:(NSString *)key;
+
+/// RSA 加密数据
+/// @param data 加密后的二进制数据
+- (NSData *)RSA_EN_Data:(NSData *)data;
+
+///  RSA 加密字符串
+/// @param string 要加密的字符串
+- (NSString *)RSA_EN_String:(NSString *)string;
+
+/// RSA 解密数据
+/// @param data 要解密的数据
+- (NSData *)RSA_DE_Data:(NSData *)data;
+
+/// RSA 解密字符串
+/// @param string 要解密的 BASE64 编码字符串
+- (NSString *)RSA_DE_String:(NSString *)string;
+
+@end
 
 @interface NSData (RSA)
 @property (nonatomic,readonly,assign)NSData *rsa_public_data; //
 @property (nonatomic,readonly,assign)NSData *rsa_private_data; //
-@end
-@interface NSArray (filter)
 @end
 
 static R_SA *shareInstance = nil;
@@ -26,21 +49,6 @@ static R_SA *shareInstance = nil;
 @interface R_SA() {
     SecKeyRef _publicKeyRef;                             // 公钥引用
     SecKeyRef _privateKeyRef;                            // 私钥引用
-}
-
-@end
-
-
-@implementation NSArray (filter)
-
-- (NSMutableArray *)filter:(Array_Filter_Block)predicate {
-    NSMutableArray *list = [NSMutableArray arrayWithCapacity:self.count];
-    [self enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (predicate(obj)) {
-            [list addObject:obj];
-        }
-    }];
-    return list;
 }
 
 @end
@@ -59,23 +67,23 @@ static R_SA *shareInstance = nil;
 
 #pragma mark - RSA 加密/解密算法
 
-- (R_SA_KEY_BLOCK)add_public_key_path {
+- (R_SA_KEY_BLOCK)add_pubPath {
     return ^(NSString *path) {
         [self rsa_public_key_path:path];
     };
 }
-- (R_SA_PRIVATEKEY_BLOCK)add_private_key_path {
+- (R_SA_PRIVATEKEY_BLOCK)add_privatePath {
     return ^(NSString *path,NSString *pwd) {
         [self rsa_private_key_path:path pwd:pwd];
     };
 }
 
-- (R_SA_KEY_BLOCK)add_public_key {
+- (R_SA_KEY_BLOCK)add_pubKey {
     return ^(NSString *key) {
         [self  rsa_public_key:key];
     };
 }
-- (R_SA_KEY_BLOCK)add_private_key {
+- (R_SA_KEY_BLOCK)add_privateKey {
     return ^(NSString *key) {
         [self  rsa_private_key:key];
     };
@@ -146,13 +154,13 @@ static R_SA *shareInstance = nil;
     
     // 使用公钥加密
     status = isEn ? SecKeyEncrypt(seckeyRef,
-                                  kTypeOfWrapPadding,
+                                  kSecPaddingPKCS1,
                                   (const uint8_t *)data.bytes,
                                   textLen2,
                                   uint8_tBuffer,
                                   &textLen1
                                   ) : SecKeyDecrypt(seckeyRef,
-                                                    kTypeOfWrapPadding,
+                                                    kSecPaddingPKCS1,
                                                     (const uint8_t *)data.bytes,
                                                     textLen1,
                                                     uint8_tBuffer,
@@ -190,10 +198,7 @@ static R_SA *shareInstance = nil;
     
     // 基于证书和策略创建一个信任管理对象
     OSStatus status = SecTrustCreateWithCertificates(certificateRef, policyRef, &trustRef);
-    if (status == errSecSuccess) {
-        
-    }
-   
+    if (status == errSecSuccess) {}
     [self vaildTrustRef:trustRef];
     // 评估之后返回公钥子证书
     _publicKeyRef = SecTrustCopyPublicKey(trustRef);
@@ -259,11 +264,7 @@ static R_SA *shareInstance = nil;
 
 - (void)createKey:(NSString *)key isPublic:(BOOL)isPublic {
     
-    NSArray *list = [[key componentsSeparatedByString:@"\n"] filter:^BOOL(NSString *line) {
-        return ![line hasPrefix:@"-----BEGIN"] && ![line hasPrefix:@"-----END"];
-    }];
-    // This will be base64 encoded, decode it.
-    NSData *data = [list componentsJoinedByString:@""].base_64_data;
+    NSData *data = key.rsa_data;
     data = isPublic ?  data.rsa_public_data : data.rsa_private_data;
     
     //a tag to read/write keychain storage

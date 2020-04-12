@@ -10,10 +10,10 @@
 		CB10A15224407B2400D24018 /* p.p12 in Resources */ = {isa = PBXBuildFile; fileRef = CB10A15024407B2300D24018 /* p.p12 */; };
 		CB10A15324407B2400D24018 /* ca.der in Resources */ = {isa = PBXBuildFile; fileRef = CB10A15124407B2400D24018 /* ca.der */; };
 		CB10A15524407BDD00D24018 /* ca.csr in Resources */ = {isa = PBXBuildFile; fileRef = CB10A15424407BDD00D24018 /* ca.csr */; };
+		CB278E652442C3FA00B98C1F /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB278E632442C3FA00B98C1F /* SceneDelegate.m */; };
 		CBEE9E3B243EB6B300ACA7FB /* ResourceCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEE9E39243EB6B300ACA7FB /* ResourceCryptor.m */; };
 		CBEE9E3C243EB6B300ACA7FB /* ResourceCryptor.h in Headers */ = {isa = PBXBuildFile; fileRef = CBEE9E3A243EB6B300ACA7FB /* ResourceCryptor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CBEE9E45243EBB8700ACA7FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEE9E44243EBB8700ACA7FB /* AppDelegate.m */; };
-		CBEE9E48243EBB8700ACA7FB /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEE9E47243EBB8700ACA7FB /* SceneDelegate.m */; };
 		CBEE9E4E243EBB8700ACA7FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E4C243EBB8700ACA7FB /* Main.storyboard */; };
 		CBEE9E50243EBB8C00ACA7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E4F243EBB8C00ACA7FB /* Assets.xcassets */; };
 		CBEE9E53243EBB8C00ACA7FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBEE9E51243EBB8C00ACA7FB /* LaunchScreen.storyboard */; };
@@ -69,6 +69,8 @@
 		CB10A15024407B2300D24018 /* p.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = p.p12; sourceTree = "<group>"; };
 		CB10A15124407B2400D24018 /* ca.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = ca.der; sourceTree = "<group>"; };
 		CB10A15424407BDD00D24018 /* ca.csr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ca.csr; sourceTree = "<group>"; };
+		CB278E632442C3FA00B98C1F /* SceneDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		CB278E642442C3FA00B98C1F /* SceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		CBEE9E2E243EB68000ACA7FB /* ResourceCryptor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ResourceCryptor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBEE9E32243EB68000ACA7FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBEE9E39243EB6B300ACA7FB /* ResourceCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceCryptor.m; sourceTree = "<group>"; };
@@ -76,8 +78,6 @@
 		CBEE9E41243EBB8700ACA7FB /* ResourceCryptorExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResourceCryptorExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBEE9E43243EBB8700ACA7FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CBEE9E44243EBB8700ACA7FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CBEE9E46243EBB8700ACA7FB /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		CBEE9E47243EBB8700ACA7FB /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		CBEE9E4D243EBB8700ACA7FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CBEE9E4F243EBB8C00ACA7FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBEE9E52243EBB8C00ACA7FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -160,8 +160,8 @@
 				CB10A15024407B2300D24018 /* p.p12 */,
 				CBEE9E43243EBB8700ACA7FB /* AppDelegate.h */,
 				CBEE9E44243EBB8700ACA7FB /* AppDelegate.m */,
-				CBEE9E46243EBB8700ACA7FB /* SceneDelegate.h */,
-				CBEE9E47243EBB8700ACA7FB /* SceneDelegate.m */,
+				CB278E642442C3FA00B98C1F /* SceneDelegate.h */,
+				CB278E632442C3FA00B98C1F /* SceneDelegate.m */,
 				CBEE9E5A243EBBBF00ACA7FB /* ExampleController.h */,
 				CBEE9E5B243EBBBF00ACA7FB /* ExampleController.m */,
 				CBEE9E4C243EBB8700ACA7FB /* Main.storyboard */,
@@ -348,7 +348,7 @@
 				CBEE9E45243EBB8700ACA7FB /* AppDelegate.m in Sources */,
 				CBEE9E56243EBB8C00ACA7FB /* main.m in Sources */,
 				CBEE9E5C243EBBBF00ACA7FB /* ExampleController.m in Sources */,
-				CBEE9E48243EBB8700ACA7FB /* SceneDelegate.m in Sources */,
+				CB278E652442C3FA00B98C1F /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,7 +451,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -506,7 +506,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -532,7 +532,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5;
+				MARKETING_VERSION = 0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Teng.ResourceCryptor;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -556,7 +556,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5;
+				MARKETING_VERSION = 0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Teng.ResourceCryptor;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

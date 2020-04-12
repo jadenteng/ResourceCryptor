@@ -43,14 +43,14 @@ NSString *string = @"hello hello";
         //1加载公钥
         NSString *path = [[NSBundle mainBundle] pathForResource:@"ca.der" ofType:nil];
         
-        RSA_.add_public_key_path(path);
+        RSA_.add_pubPath(path);
         //2:使用公钥加密
         NSString *en_str = RSA_.EN_String(@"hello");
         NSLog(@"加密后结果:%@",en_str);
         
         //3:加载私钥,并且指定导出p12时设定的密码
         NSString *p12Path = [[NSBundle mainBundle] pathForResource:@"p.p12" ofType:nil];
-        RSA_.add_private_key_path(p12Path,@"123456");//path:路径 pwd:密码
+        RSA_.add_privatePath(p12Path,@"123456");//path:路径 pwd:密码
         
         // 4. 使用私钥解密
         NSString *de_str = RSA_.DE_String(en_str);
@@ -67,11 +67,11 @@ NSString *string = @"hello hello";
         
         NSString *info_str = @"hello hello";
         // 1:加载公钥
-        RSA_.add_public_key(pubkey);
+        RSA_.add_pubKey(pubkey);
         // 2:使用公钥加密
         NSString *en_str = RSA_.EN_String(info_str);
         // 3:加载私钥
-        RSA_.add_private_key(privkey);
+        RSA_.add_privateKey(privkey);
         // 4:使用私钥解密
         NSLog(@"解密结果 %@", RSA_.DE_String(en_str));
     }];
