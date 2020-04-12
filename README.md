@@ -134,8 +134,8 @@ pod 'ResourceCryptor'
 - iOS 9.0+
 
 ### 参考文档 以及代码
->![自签名证书](http://www.demodashi.com/demo/14102.html)
->![XHCryptorTools](https://github.com/XHTeng/XHCryptorTools)
+>[自签名证书](http://www.demodashi.com/demo/14102.html)
+>[XHCryptorTools](https://github.com/XHTeng/XHCryptorTools)
 
 # 加密介绍
 >`ResourceCryptor` 使用苹果系统自带相关函数进行加密解密
@@ -194,8 +194,8 @@ M = (P – 1) * (Q – 1)
 
 ![生成如下证书文件](https://github.com/JadenTeng/ResourceCryptor/blob/master/ca.jpg)
 
-#  对于数据加密解密+网络请求(基于AF封装) ![ResourceX](https://github.com/JadenTeng/ResourceX)
-> ***欢迎使用我的另外的库***![ResourceX](https://github.com/JadenTeng/ResourceX)
+#  对于数据加密解密+网络请求(基于AF封装) [ResourceX](https://github.com/JadenTeng/ResourceX)
+> ***欢迎使用我的另外的库***[ResourceX](https://github.com/JadenTeng/ResourceX)
 
 ###  Release Notes 最近更新     
 - 1.0 Initial release
