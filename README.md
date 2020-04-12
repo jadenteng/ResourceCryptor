@@ -194,7 +194,7 @@ M = (P – 1) * (Q – 1)
 
 ![生成如下证书文件](https://github.com/JadenTeng/ResourceCryptor/blob/master/ca.jpg)
 
-
+###  对于加密解密+对于网络请求的封装请参考我的另外的库![ResourceX](https://github.com/JadenTeng/ResourceX)
 ###  Release Notes 最近更新     
 - 1.0 Initial release
 
