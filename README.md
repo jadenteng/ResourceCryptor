@@ -10,15 +10,15 @@
 </a>
 
 <a href="https://codecov.io/gh/JadenTeng/ResourceCryptor">
-  <img src="https://codecov.io/gh/JadenTeng/ResourceCryptor/branch/master/graph/badge.svg" />
+<img src="https://codecov.io/gh/JadenTeng/ResourceCryptor/branch/master/graph/badge.svg" />
 </a>
 
 <a href="https://github.com/Carthage/Carthage/">
-   <img src="https://img.shields.io/badge/Carthage-Compatible-4BC51D">
+<img src="https://img.shields.io/badge/Carthage-Compatible-4BC51D">
 </a>
 
 <a href="https://github.com/CocoaPods/CocoaPods">
-   <img src="https://img.shields.io/badge/CocoaPods-Compatible-orange">
+<img src="https://img.shields.io/badge/CocoaPods-Compatible-orange">
 </a>
 
 </P>
@@ -37,15 +37,15 @@
 * 提供常规AES DES加解密 SHA_256 MD5等... 在ResourceCryptor.h中
 
 #### *RSA* (encrypt)加密
-* RSA 公钥为String或der证书类型
-1. 加载RSA公钥 `add_pubKey`  or `add_pubPath`
+##### RSA 公钥为String或der证书类型
+* 加载RSA公钥 `add_pubKey`  or `add_pubPath`
 ```objective-c
 // 1:加载公钥为String类型 
 RSA_.add_pubKey(pubkey);
 // 2:加载公钥 path:der格式的公钥证书
 RSA_.add_pubPath(path);
 ```
-2. 使用公钥加密
+* 使用公钥加密
 ```objective-c
 // 1:通过公钥加密content:文本类容
 RSA_.EN_String(content)
@@ -53,14 +53,14 @@ RSA_.EN_String(content)
 RSA_.EN_Data(data)
 ```
 #### RSA (decrypt)解密
-1. 加载RSA 密钥 
+*  加载RSA 密钥 
 ```objective-c
 //1 通过privkey 为String类型 加载 
 RSA_.add_privateKey(privkey);
 //2 通过path 为der证书类型 加载 
 RSA_.add_privatePath(path);
 ```
-1. 解密RSA 
+*  解密RSA 
 ```objective-c
 //en_str 解密的类容string
 RSA_.DE_String(en_str)
@@ -69,35 +69,35 @@ RSA_.DE_String(en_data)
 ```
 #### AES DES  EN加密与DE解密
 
-AES 加解密 String `EN_AES(key,iv)`  key: 加密密钥 iv:  IV向量
+* AES 加解密 String `EN_AES(key,iv)`  key: 加密密钥 iv:  IV向量
 ```objective-c
 //1.加密content文本 使用AES加密
- NSString *en_str = content.EN_AES(key,iv);
+NSString *en_str = content.EN_AES(key,iv);
 //2.解密文本 de_str:解密的内容
- NSString *de_str.DE_AES(key,iv)
+NSString *de_str.DE_AES(key,iv)
 ```
-AES 加解密 Data `EN_AES(key,iv)`  key: 加密密钥 iv:  IV向量
+* AES 加解密 Data `EN_AES(key,iv)`  key: 加密密钥 iv:  IV向量
 ```objective-c
 //1.加密json对象 使用AES加密
- NSData *en_data = json.EN_AES(key,iv);
+NSData *en_data = json.EN_AES(key,iv);
 //2.解密AES de_str:解密的data数据
- NSData *de_data.DE_AES(key,iv)
+NSData *de_data.DE_AES(key,iv)
 //3.转换为jsonObject
 NSDictionary *jsonObj= de_data.DE_AES(key,iv)
 ```
-DES 加解密 String `EN_DES(key,iv)`  key: 加密密钥 iv:  IV向量
+* DES 加解密 String `EN_DES(key,iv)`  key: 加密密钥 iv:  IV向量
 ```objective-c
 //1.加密content文本 使用AES加密
- NSString *en_str = content.EN_DES(key,iv);
+NSString *en_str = content.EN_DES(key,iv);
 //2.解密文本 de_str:解密的内容
- NSString *de_str.DE_DES(key,iv)
+NSString *de_str.DE_DES(key,iv)
 ```
-DES 加解密 Data `EN_DES(key,iv)`  key: 加密密钥 iv:  IV向量
+* DES 加解密 Data `EN_DES(key,iv)`  key: 加密密钥 iv:  IV向量
 ```objective-c
 //1.加密json对象 使用AES加密
- NSData *en_data = json.EN_DES(key,iv);
+NSData *en_data = json.EN_DES(key,iv);
 //2.解密AES de_str:解密的data数据
- NSData *de_data.DE_DES(key,iv)
+NSData *de_data.DE_DES(key,iv)
 //3.转换为jsonObject
 NSDictionary *jsonObj= de_data.DE_DES(key,iv)
 ```
