@@ -194,10 +194,7 @@ M = (P – 1) * (Q – 1)
 7. 生成.p12二进制私钥文件 .pem 是base64的不能直接使用，必须导成.p12信息交换文件用来传递秘钥
 `pkcs12 -export -out p.p12 -inkey rsa_private_key.pem -in ca.crt` (输入一个导出密码框架中pwd参数需要用的密码）)
 
-生成如下证书文件:
-<a>
-<img src="https://github.com/JadenTeng/ResourceCryptor/blob/master/ca.jpg" width="106" height="80"/>
-</a>
+[生成如下证书文件]:(https://github.com/JadenTeng/ResourceCryptor/blob/master/ca.jpg)
 
 
 ###  Release Notes 最近更新     
