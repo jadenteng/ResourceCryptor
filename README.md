@@ -37,7 +37,7 @@
 * 提供常规AES DES加解密 SHA_256 MD5等... 在ResourceCryptor.h中
 
 #### *RSA* (encrypt)加密
- RSA 公钥为String或der证书类型
+* RSA 公钥为String或der证书类型
 1. 加载RSA公钥 `add_pubKey`  or `add_pubPath`
 ```objective-c
 // 1:加载公钥为String类型 
