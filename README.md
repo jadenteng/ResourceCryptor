@@ -37,7 +37,7 @@
 * 提供常规AES DES加解密 SHA_256 MD5等... 在ResourceCryptor.h中
 * RSA 如何生成公钥、密钥以及.der .p12证书放在文章末尾
 
-#### *RSA* (encrypt)加密
+#### **RSA (encrypt)加密**
 ##### RSA 公钥为String或der证书类型
 > 1. 加载RSA公钥 `add_pubKey`  or `add_pubPath`
 ```objective-c
@@ -88,14 +88,14 @@ NSDictionary *jsonObj= de_data.DE_AES(key,iv)
 ```
 - DES 加解密 String `EN_DES(key,iv)`  key: 加密密钥 iv:  IV向量
 ```objective-c
-//1.加密content文本 使用AES加密
+//1.加密content文本 使用DES加密
 NSString *en_str = content.EN_DES(key,iv);
 //2.解密文本 de_str:解密的内容
 NSString *de_str.DE_DES(key,iv)
 ```
 - DES 加解密 Data `EN_DES(key,iv)`  key: 加密密钥 iv:  IV向量
 ```objective-c
-//1.加密json对象 使用AES加密
+//1.加密json对象 使用DES加密
 NSData *en_data = json.EN_DES(key,iv);
 //2.解密AES de_str:解密的data数据
 NSData *de_data.DE_DES(key,iv)
@@ -194,7 +194,9 @@ M = (P – 1) * (Q – 1)
 
 ![生成如下证书文件](https://github.com/JadenTeng/ResourceCryptor/blob/master/ca.jpg)
 
-#  **对于数据加密解密+网络请求的欢迎使用我的另外的库![ResourceX](https://github.com/JadenTeng/ResourceX)**
+###  --对于数据加密解密+网络请求的--
+> ***欢迎使用我的另外的库***![ResourceX](https://github.com/JadenTeng/ResourceX)
+
 ###  Release Notes 最近更新     
 - 1.0 Initial release
 
