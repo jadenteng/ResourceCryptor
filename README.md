@@ -28,11 +28,9 @@
 ## Features
 - [x] Fully tested.
 - [x] Simple interface.
-- [x] Support access group.
-- [x] Support accessibility.
-- [x] Support latest sdk 
+- [x] Support access group and accessibility.
 
-### ResourceCryptor
+## 上手指南
 - 对于Object-C的加密代码过于冗杂,作者把常见的加密的一些方法重新做了封装让对于加密解密变的更加简单好用,如果你正在为使用一些常规的加密方法过于复杂,相信ResourceCryptor会让您加密的逻辑处理变得更加容易。
 
 * 使用RSA 加密解密提供了最简单的单例 `RSA_` 在库中的`R_SA.h` 
