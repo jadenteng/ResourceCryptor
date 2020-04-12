@@ -23,7 +23,7 @@
 
 </P>
 
-`ResourceCryptor` Simplest `RSA` `AES` `DES` encrypt / decrypt with Objective-C on iOS and  `MD5` `SHA_1` `SHA_256` `SHA_224` `SHA_512` and HMAC `HmacMD5` `HmacSHA1_SHA224_SHA256_SHA384_SHA512` of NSData、NSString Category 
+`ResourceCryptor` Simplest `RSA` `AES` `DES` encrypt / decrypt with Objective-C on iOS and  `MD5` `SHA_1` `SHA_256` `SHA_224` `SHA_512` and HMAC `HmacMD5` `HmacSHA1_SHA224_SHA256_SHA384_SHA512` of NSData、NSString Category 一款轻量级的加解密framework
 
 ## Features
 - [x] Fully tested.
@@ -31,7 +31,7 @@
 - [x] Support access group and accessibility.
 
 ## 上手指南
-> 对于Object-C的加密代码过于冗杂,作者把常见的加密的一些方法重新做了封装让对于加密解密变的更加简单好用,如果你正在为使用一些常规的加密方法过于复杂,相信ResourceCryptor会让您加密的逻辑处理变得更加容易。
+> 对于Object-C的加密代码过于冗杂,作者把常见的加密的一些方法重新做了封装让对于加密解密变的更加简单好用,如果你正在为使用一些需要加密数据的方法过于复杂,相信ResourceCryptor会让您逻辑处理加解密数据变得更加容易。
 
 * 使用RSA 加密解密提供了最简单的单例 `RSA_` 在库中的`R_SA.h` 
 * 提供常规AES DES加解密 SHA_256 MD5等... 在ResourceCryptor.h中
