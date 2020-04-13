@@ -136,10 +136,6 @@ pod 'ResourceCryptor'
 ### Requirements
 - iOS 9.0+
 
-### 参考文档 以及代码
->[自签名证书](http://www.demodashi.com/demo/14102.html)
->[XHCryptorTools](https://github.com/XHTeng/XHCryptorTools)
-
 # 加密介绍
 >`ResourceCryptor` 使用苹果系统自带相关函数进行加密解密
 >对于普遍APP的加密方式:客户端用RSA的公钥加密AES密钥,服务器端用私钥解密从app获得的AES密钥,客户端再与服务器进行AES加密的数据传输。
