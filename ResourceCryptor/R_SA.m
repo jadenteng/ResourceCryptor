@@ -168,7 +168,7 @@ static R_SA *shareInstance = nil;
                                                     &textLen2
                                                     );
     
-    NSAssert(status == noErr, @"EN error，OSStatus == %d", status);
+    NSAssert(status == noErr, @"EN error，OSStatus == %d", (int)status);
     NSUInteger len = isEn ? textLen1: textLen2;
     // 生成密文或明文数据
     NSData  *datas = [NSData dataWithBytes:(const void *)uint8_tBuffer length:len];

@@ -90,14 +90,21 @@ typedef NSString *_Nullable(^k_CCHmacAlgSHA_block)(NSString *key);
 
 @end
 @interface NSData (Conversion)
-/// base64data string
+/// base64data 转为 string
 @property (nonatomic,assign,readonly)NSString *base64_encoded_string;
+/// base64data 转为 data
+@property (nonatomic,assign,readonly)NSData *base64_encoded_data;
 /// data 转换为utf8
 @property (nonatomic,assign,readonly)NSString *encoding_base64_UTF8StringEncoding;
+/// data 转换为 base64 data
+@property (nonatomic,assign,readonly)NSData *base64_data;
 @end
 
 @interface NSDictionary (Conversion)
+////将json数据 转为 json data
 @property (nonatomic,assign,readonly) NSData *json_Data;
+///将json数据 转为 utf8 data
+@property (nonatomic,assign,readonly) NSData *json_Data_utf8;
 @end
 @interface NSData (Private)
 

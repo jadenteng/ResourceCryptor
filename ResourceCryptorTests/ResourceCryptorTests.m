@@ -144,7 +144,25 @@ XCTAssertEqualObjects(en,@"99f2a12918f5e0c7e21ef4759ecb8dd882c95af32a204ac83928a
 
 - (void)testbase_64 {
     NSString *en = @"acc".base_64;
+  
+    NSDictionary *dic = @{@"key":@"11"};
+    
+    NSData *en_data =  dic.json_Data_utf8;
+
+    NSString *base64_encoded_string = en_data.base64_encoded_string;
+   
+    NSData *base64 = @{@"ket":@"我\\擦"}.json_Data_utf8.base64_encoded_string.base_64_data;
+    NSString *encoding_base64 = base64.base64_encoded_string.encoding_base64;
+    NSDictionary *JSON_Object = base64.JSON_Object;
+    NSData *data = base64.base64_encoded_data;
+   
+    XCTAssertNotNil(data);
+    XCTAssertNotNil(en_data);
     XCTAssertNotNil(en);
+    XCTAssertNotNil(base64_encoded_string);
+    XCTAssertNotNil(base64);
+    XCTAssertNotNil(encoding_base64);
+    XCTAssertNotNil(JSON_Object);
 }
 
 - (void)testencoding_base64{

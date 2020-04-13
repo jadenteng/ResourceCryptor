@@ -349,13 +349,21 @@ typedef BOOL (^Array_Filter_Block)(id );
 
 @implementation  NSData (Conversion)
 
-///data 转换为base64字符串
+///base64data 转为 string
 - (NSString * )base64_encoded_string {
     return [self base64EncodedStringWithOptions:0];
+}
+/// base64data 转为 data
+- (NSData *)base64_encoded_data {
+    return [self base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
 }
 /// 将data 按照 utf8 解码 为字符串
 - (NSString *)encoding_base64_UTF8StringEncoding {
     return [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
+}
+/// data to base64 data
+- (NSData *)base64_data {
+    return self.encoding_base64_UTF8StringEncoding.utf_8;
 }
 
 @end
@@ -490,5 +498,8 @@ typedef BOOL (^Array_Filter_Block)(id );
 @implementation NSDictionary (Conversion)
 - (NSData *)json_Data {
     return [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil];
+}
+- (NSData *)json_Data_utf8 {
+    return self.json_Data.base64_data;
 }
 @end

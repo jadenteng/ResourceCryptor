@@ -101,7 +101,7 @@ NSString *string = @"hello hello";
     [self test:@"DES":^{
         /// jsonObj
         NSDictionary *paramters = @{@"key1":@"10",@"key2":@1};
-        NSData *jsonData = paramters.json_Data;
+        NSData *jsonData = paramters.json_Data_utf8;
         /// 加密DES
         NSData *en_data = jsonData.EN_DES(key,iv);
         /// 解密
