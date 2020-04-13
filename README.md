@@ -39,6 +39,7 @@
 
 #### **RSA (encrypt)加密**
 ##### RSA 公钥为String或der证书类型
+
 > 1. 加载RSA公钥 `add_pubKey`  or `add_pubPath`
 ```objective-c
 // 1:加载公钥为String类型 
@@ -46,20 +47,22 @@ RSA_.add_pubKey(pubkey);
 // 2:加载公钥 path:der格式的公钥证书
 RSA_.add_pubPath(path);
 ```
+>  2. 加载RSA 密钥 
+```objective-c
+//1 通过privkey 为String类型 加载 
+RSA_.add_privateKey(privkey);
+//2 通过path 为der证书类型 加载 
+RSA_.add_privatePath(path);
+```
+
+#### RSA (decrypt)解密
+
 > 2. 使用公钥加密
 ```objective-c
 // 1:通过公钥加密content:文本类容
 RSA_.EN_String(content)
 // 2:通过公钥加密data:文本类容data
 RSA_.EN_Data(data)
-```
-#### RSA (decrypt)解密
->  1. 加载RSA 密钥 
-```objective-c
-//1 通过privkey 为String类型 加载 
-RSA_.add_privateKey(privkey);
-//2 通过path 为der证书类型 加载 
-RSA_.add_privatePath(path);
 ```
 >  2. 解密RSA 
 ```objective-c
