@@ -198,5 +198,6 @@ M = (P – 1) * (Q – 1)
 > ***欢迎使用我的另外的库***[ResourceX](https://github.com/JadenTeng/ResourceX)
 
 ###  Release Notes 最近更新     
+- 1.0.1 添加NSdata的转换方法 base64 to NSdata Data to Base64
 - 1.0 Initial release
 
