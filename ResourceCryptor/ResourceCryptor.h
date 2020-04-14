@@ -12,9 +12,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// key 加密密钥 iv IV向量
-typedef NSData *_Nullable(^CRYPTOR_BLOCK)(NSString *key, NSString *iv);
+typedef NSData *_Nullable(^CRYPTOR_BLOCK)(NSString *key, NSString *_Nullable iv);
 /// key 加密密钥 iv IV向量
-typedef NSString *_Nullable(^CRYPTOR_STR_BLOCK)(NSString *key, NSString *iv);
+typedef NSString *_Nullable(^CRYPTOR_STR_BLOCK)(NSString *key, NSString *_Nullable iv);
 /// SHAHMAC key 加密密钥
 typedef NSString *_Nullable(^k_CCHmacAlgSHA_block)(NSString *key);
 
@@ -87,24 +87,28 @@ typedef NSString *_Nullable(^k_CCHmacAlgSHA_block)(NSString *key);
 @property (nonatomic,assign,readonly)NSData *utf_8; //
 /// RSA string to data
 @property (nonatomic,assign,readonly)NSData *rsa_data; //
-
+/// data 转换为 json
+@property (nonatomic,assign,readonly) id _Nonnull JSON_Object;
 @end
 @interface NSData (Conversion)
-/// base64data 转为 string
+/// base64data 转为 base64 string
 @property (nonatomic,assign,readonly)NSString *base64_encoded_string;
+///// base64data 转为 base64 string
+//@property (nonatomic,assign,readonly)NSString *base64_string;
 /// base64data 转为 data
 @property (nonatomic,assign,readonly)NSData *base64_encoded_data;
-/// data 转换为utf8
+/// base64data 转换为utf8 string
 @property (nonatomic,assign,readonly)NSString *encoding_base64_UTF8StringEncoding;
+
 /// data 转换为 base64 data
 @property (nonatomic,assign,readonly)NSData *base64_data;
+
 @end
 
 @interface NSDictionary (Conversion)
-////将json数据 转为 json data
-@property (nonatomic,assign,readonly) NSData *json_Data;
-///将json数据 转为 utf8 data
+///将json数据 转为 base64 data
 @property (nonatomic,assign,readonly) NSData *json_Data_utf8;
+@property (nonatomic,assign,readonly) NSString *json_String;
 @end
 @interface NSData (Private)
 

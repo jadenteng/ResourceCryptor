@@ -11,8 +11,8 @@
 #import <Network/Network.h>
 #import "R_SA.h"
 
-NSString *key = @"iojyxgas+x*$a$*s";
-NSString *iv = @"iojyxgas+x*$a$*s";
+#define key              @"iojyxgas+x*$a$*s"
+#define iv               @"bbc077ccff5c1ab8"
 
 NSString *string = @"hello hello";
 
@@ -110,9 +110,10 @@ NSString *string = @"hello hello";
         NSLog(@"解密:%@",de_json);
         
         /// String
-        NSString *en_str = string.EN_DES(key,iv);
+        NSString *en_str = string.EN_DES(key,nil);
         NSLog(@"加密en_str:%@",en_str);
-        NSLog(@"解密:%@",en_str.DE_DES(key,iv));
+        NSLog(@"解密:%@",en_str.DE_DES(key,nil));
+        
     }];
 }
 
@@ -121,11 +122,11 @@ NSString *string = @"hello hello";
     [self test:@"AES":^{
         /// jsonObj
         NSDictionary *paramters = @{@"key1":@"10",@"key2":@1};
-        NSData *jsonData = paramters.json_Data;
+        NSData *jsonData = paramters.json_Data_utf8;
         /// 加密
-        NSData *en_data = [jsonData AES_EN:key iv:iv];
+        NSData *en_data = jsonData.EN_AES(key,iv);
         /// 解密
-        NSData *de_data = [en_data AES_DE:key iv:iv];
+        NSData *de_data = en_data.DE_AES(key,iv);
         NSDictionary *de_json = de_data.JSON_Object;
         NSLog(@"%@",de_json);
         
@@ -136,6 +137,79 @@ NSString *string = @"hello hello";
         
     }];
 }
+
+
+- (void)testAES128 {
+    
+    [self test:@"AES128" :^{
+        [self testAES_EN_string];
+        [self testtestAES_EN_data];
+        [self testtestAES_DE_json];
+    }];
+}
+- (void)testAES_EN_string {
+    
+    NSDictionary *dict = @{
+        @"source" : @"APPSTORE",
+        @"opact" : @"Reg/activityControl",
+        @"xgpush_device" : @"",
+        @"jpush_device" : @"",
+        @"platform" : @"jy*&#ios*&",
+        @"imei" : @"8ef99c419c15e9f6007928c962fbb1201ec4b5ea",
+        @"app_model" : @"iPhone Simulator",
+        @"tms" : @"20200413204706"
+    } ;
+    ///使用string 加密
+    NSString *en_data = dict.json_String.EN_AES(key,iv);
+    NSLog(@"加密:%@",en_data);
+    
+    /// data 解密string
+    NSString *de_data = en_data.DE_AES(key,iv);
+    NSLog(@"解密:%@",de_data);
+    NSLog(@"解密转为json对象:%@",de_data.JSON_Object);
+}
+- (void)testtestAES_EN_data {
+    
+    NSDictionary *dict = @{
+        @"source" : @"APPSTORE",
+        @"opact" : @"Reg/activityControl",
+        @"xgpush_device" : @"",
+        @"jpush_device" : @"",
+        @"platform" : @"jy*&#ios*&",
+        @"imei" : @"8ef99c419c15e9f6007928c962fbb1201ec4b5ea",
+        @"app_model" : @"iPhone Simulator",
+        @"tms" : @"20200413204706"
+    } ;
+    
+    NSData *en_data = dict.json_Data_utf8.EN_AES(key,iv);
+    NSString *en_base64 = en_data.base64_encoded_string;
+    NSLog(@"加密:base64%@",en_base64);
+    /// data 解密string
+    NSData *de_data = en_data.DE_AES(key,iv);
+    NSLog(@"解密:%@",de_data.encoding_base64_UTF8StringEncoding);
+    
+    /// string 解密string
+    NSString *de_str = en_base64.DE_AES(key,iv);
+    NSLog(@"解密string:%@",de_str);
+    
+}
+- (void)testtestAES_DE_json {
+    ///加密字符串
+    NSString *en_str =  @"d0lPVtq/pHJyd7VrZuZu2qyNydWSLGxLhBVSdiQE0YmHFQOTcfyeSpVL+LQjaVQyQo/5wVKh0piL8Fyp927GHCJ9TzUS/VRk/sY53kdSSsP6tabrXU7FQ3KhtiXri1wG5u71iqOMeTi3wsLSuaLbfU2JSUqPMPU4PKQ6czQ4GRanyzWiDzPxQqFpFZs9gbDV8hdn7L5FgZ5AvledPoEgJiFfw2mQ8imxi8Piufe/2F/wzyJFRAl6j6oamQpsXg1k29CFctl9DH0bf9hT3utgqu8fcMcpiipNMt+4yuNgsubyOZ1ck3dzMmidBsUDMGjA3S1NVX6gtSpA7ZD5NJTFWGn2SSRoCDKfv7O85kxzSJU=";
+    ///转换data
+    NSData  *desdata = en_str.base_64_data;
+    ///解密 使用data
+    NSData *de_data = desdata.DE_AES(key,iv);
+    NSString *des_Str = de_data.encoding_base64_UTF8StringEncoding;
+    NSLog(@"%@",des_Str);
+    
+    ///解密 使用string
+    NSString *de_str = en_str.DE_AES(key,iv);
+    NSLog(@"%@",de_str);
+    
+    
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:
@@ -152,6 +226,9 @@ NSString *string = @"hello hello";
             break;
         case 4:
             [self testHMAC];
+            break;
+        case 5:
+            [self testAES128];
             break;
         default:
             break;

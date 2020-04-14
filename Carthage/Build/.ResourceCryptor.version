@@ -1,9 +1,9 @@
 {
-  "commitish" : "0.1",
+  "commitish" : "3ad8e26930703edd4e8a78b4e4aac4d6c67f2cd3",
   "iOS" : [
     {
       "name" : "ResourceCryptor",
-      "hash" : "06f5f670c345c815013ec513619b9df79ab26aa631c370c33b930b8ce41d2daf"
+      "hash" : "a6bd4f0b305f1e5565664049d800e825a80f62fa38efe7049f2057fca597ec47"
     }
   ]
 }

@@ -25,7 +25,7 @@ typedef BOOL (^Array_Filter_Block)(id );
 /// @param operation 加密/解密操作
 /// @param key 密钥字符串
 /// @param iv IV 向量
-- (NSData *)CCAlgorithm:(CCAlgorithm)algorithm operation:(CCOperation)operation key:(NSString *)key iv:(NSData *)iv;
+- (NSData *)CCAlgorithm:(CCAlgorithm)algorithm operation:(CCOperation)operation key:(NSString *)key iv:(NSString *)iv;
 @end
 
 @interface NSData (RSA)
@@ -68,7 +68,8 @@ typedef BOOL (^Array_Filter_Block)(id );
     };
 }
 - (id)JSON_Object {
-    return [NSJSONSerialization JSONObjectWithData:self options:0 error:nil];
+    NSString *json =  [self.encoding_base64_UTF8StringEncoding stringByTrimmingCharactersInSet:[NSCharacterSet controlCharacterSet]];
+    return [NSJSONSerialization JSONObjectWithData:json.utf_8 options:0 error:nil];
 }
 
 @end
@@ -245,52 +246,55 @@ typedef BOOL (^Array_Filter_Block)(id );
 @implementation NSData (Cryptor)
 
 /// 对称加密&解密核心方法
-- (NSData *)CCAlgorithm:(CCAlgorithm)algorithm operation:(CCOperation)operation key:(NSString *)key iv:(NSData *)iv {
-    
+- (NSData *)CCAlgorithm:(CCAlgorithm)algorithm operation:(CCOperation)operation key:(NSString *)key iv:(NSString *)iv {
+   
     int keySize = (algorithm == kCCAlgorithmAES) ? kCCKeySizeAES128 : kCCKeySizeDES;
     int blockSize = (algorithm == kCCAlgorithmAES) ? kCCBlockSizeAES128: kCCBlockSizeDES;
     
-    // 设置密钥
-    NSData *keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
-    uint8_t cKey[keySize];
-    bzero(cKey, sizeof(cKey));
-    [keyData getBytes:cKey length:keySize];
+    NSUInteger dataLength  = self.length;
     
+    // 设置密钥
+    char keyPtr[keySize + 1];
+    memset(keyPtr, 0, sizeof(keyPtr));
+    [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+   
     // 设置 IV 向量
-    uint8_t cIv[blockSize];
-    bzero(cIv, blockSize);
+    char ivPtr[blockSize + 1];
+    memset(ivPtr, 0, sizeof(ivPtr));
+    /**
+    kCCOptionPKCS7Padding                      CBC 的加密
+    kCCOptionPKCS7Padding | kCCOptionECBMode   ECB 的加密
+    */
     int option = kCCOptionPKCS7Padding | kCCOptionECBMode;
     if (iv) {
-        [iv getBytes:cIv length:blockSize];
         option = kCCOptionPKCS7Padding;
     }
+    [iv getCString:ivPtr maxLength:sizeof(ivPtr) encoding:NSUTF8StringEncoding];
     
     // 设置输出缓冲区
-    size_t bufferSize = [self length] + blockSize;
+    size_t bufferSize = dataLength + blockSize;
     void *buffer = malloc(bufferSize);
     
-    // DE or EN
-    size_t cryptorSize = 0;
-    CCCryptorStatus cryptStatus = CCCrypt(operation,
+    //开始加密
+    size_t numBytesCrypted = 0;
+    CCCryptorStatus cryptStatus = CCCrypt( operation,
                                           algorithm,
                                           option,
-                                          cKey,
+                                          keyPtr,
                                           keySize,
-                                          cIv,
+                                          ivPtr /* initialization vector (optional) */,
                                           [self bytes],
-                                          [self length],
+                                          dataLength, /* input */
                                           buffer,
-                                          bufferSize,
-                                          &cryptorSize);
+                                          bufferSize, /* output */
+                                          &numBytesCrypted );
     
-    NSData *result = nil;
+    
     if (cryptStatus == kCCSuccess) {
-        result = [NSData dataWithBytesNoCopy:buffer length:cryptorSize];
-    } else {
-        free(buffer);
-        NSLog(@"[错误] 加密或解密失败 | 状态编码: %d", cryptStatus);
+        return [NSData dataWithBytesNoCopy:buffer length:numBytesCrypted];
     }
-    return result;
+    free(buffer);
+    return nil;
 }
 
 @end
@@ -316,7 +320,7 @@ typedef BOOL (^Array_Filter_Block)(id );
 #pragma mark - Conversion  (NSString NSData)
 @implementation  NSString (Conversion)
 
-/// 转换为base_64 string
+/// string to base64 string
 - (NSString *)base_64 {
     return self.utf_8.base64_encoded_string;
 }
@@ -343,16 +347,30 @@ typedef BOOL (^Array_Filter_Block)(id );
     NSData *data = [list componentsJoinedByString:@""].base_64_data;
     return data;
 }
+- (id)JSON_Object {
+    NSString *json = [self stringByTrimmingCharactersInSet:[NSCharacterSet controlCharacterSet]];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:json.utf_8 options:0 error:&err];
+    if(err) {
+        NSLog(@"json解析失败：%@",err);
+        return nil;
+    }
+    return dic;
+}
 
 @end
 
 
 @implementation  NSData (Conversion)
 
-///base64data 转为 string
+///base64data 转为 base64 string
 - (NSString * )base64_encoded_string {
     return [self base64EncodedStringWithOptions:0];
 }
+///// base64data 转为 base64 string
+//- (NSString *)base64_string {
+//     return [self base64EncodedStringWithOptions:0].base_64;
+//}
 /// base64data 转为 data
 - (NSData *)base64_encoded_data {
     return [self base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
@@ -449,7 +467,7 @@ typedef BOOL (^Array_Filter_Block)(id );
 
 
 - (NSString *)AES_EN:(NSString *)key iv:(NSString *)iv {
-    return [self.utf_8 AES_EN:key iv:iv].base64_encoded_string;/// BASE 64 编码
+    return [self.utf_8 AES_EN:key iv:iv].base64_encoded_string;/// BASE 64 string 编码
 }
 - (NSString *)AES_DE:(NSString *)key iv:(NSString *)iv {
     return [self.base_64_data AES_DE:key iv:iv].encoding_base64_UTF8StringEncoding;
@@ -465,18 +483,18 @@ typedef BOOL (^Array_Filter_Block)(id );
 @implementation NSData (Private)
 
 - (NSData *)DES_EN:(NSString *)key iv:(NSString *)iv {
-    return [self CCAlgorithm:kCCAlgorithmDES operation:kCCEncrypt key:key iv:iv.toHexData];
+    return [self CCAlgorithm:kCCAlgorithmDES operation:kCCEncrypt key:key iv:iv];
 }
 - (NSData *)DES_DE:(NSString *)key iv:(NSString *)iv {
-    return [self CCAlgorithm:kCCAlgorithmDES operation:kCCDecrypt key:key iv:iv.toHexData];
+    return [self CCAlgorithm:kCCAlgorithmDES operation:kCCDecrypt key:key iv:iv];
 }
 
 
 - (NSData *)AES_EN:(NSString *)key iv:(NSString *)iv {
-    return [self CCAlgorithm:kCCAlgorithmAES operation:kCCEncrypt key:key iv:iv.toHexData];
+    return [self CCAlgorithm:kCCAlgorithmAES operation:kCCEncrypt key:key iv:iv];
 }
 - (NSData *)AES_DE:(NSString *)key iv:(NSString *)iv {
-    return [self CCAlgorithm:kCCAlgorithmAES operation:kCCDecrypt key:key iv:iv.toHexData];
+    return [self CCAlgorithm:kCCAlgorithmAES operation:kCCDecrypt key:key iv:iv];
 }
 
 
@@ -496,10 +514,16 @@ typedef BOOL (^Array_Filter_Block)(id );
 @end
 
 @implementation NSDictionary (Conversion)
+
 - (NSData *)json_Data {
     return [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil];
 }
 - (NSData *)json_Data_utf8 {
-    return self.json_Data.base64_data;
+    return self.json_String.base_64.base_64_data;
+}
+- (NSString *)json_String {
+    NSMutableString *json_str = [[NSMutableString alloc] initWithString:[[NSString alloc] initWithData:self.json_Data encoding:NSUTF8StringEncoding]];
+    //去除空格
+    return [json_str stringByReplacingOccurrencesOfString:@"\\" withString:@""];
 }
 @end
