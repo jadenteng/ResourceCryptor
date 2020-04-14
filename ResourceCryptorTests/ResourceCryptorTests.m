@@ -171,6 +171,15 @@ XCTAssertEqualObjects(en,@"99f2a12918f5e0c7e21ef4759ecb8dd882c95af32a204ac83928a
     NSData *json_data = dic.json_Data_utf8;
     NSDictionary *json = json_data.JSON_Object;
       
+    NSData *hex = @"sdfsdf".toHexData;
+    NSData *base64 =  @"sss".utf_8.base64_data;
+    NSDictionary *jonsobj = json_str.JSON_Object;
+    NSDictionary *jonsobj22 = @"sdfs".JSON_Object;
+    XCTAssertNil(jonsobj22);
+    
+    XCTAssertNotNil(jonsobj);
+    XCTAssertNotNil(base64);
+    XCTAssertNotNil(hex);
     XCTAssertNotNil(json_str);
     XCTAssertNotNil(json_data);
     XCTAssertNotNil(json);

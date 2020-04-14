@@ -159,6 +159,8 @@ typedef NSString *_Nullable(^k_CCHmacAlgSHA_block)(NSString *key);
 
 @end
 
-
+@interface NSString (Cryptor)
+@property (nonatomic,readonly)NSData *toHexData; ////转换 IV 向量
+@end
 
 NS_ASSUME_NONNULL_END

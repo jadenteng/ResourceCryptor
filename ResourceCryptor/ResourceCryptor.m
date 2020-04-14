@@ -16,9 +16,7 @@ typedef BOOL (^Array_Filter_Block)(id );
 - (NSString *)cc_hmacStringUsingAlg:(CCHmacAlgorithm)alg key:(NSString *)key;
 @end
 
-@interface NSString (Cryptor)
-@property (nonatomic,readonly)NSData *toHexData; ////转换 IV 向量
-@end
+
 @interface NSData (Cryptor)
 /// 对称加密&解密核心方法
 /// @param algorithm 加密算法
