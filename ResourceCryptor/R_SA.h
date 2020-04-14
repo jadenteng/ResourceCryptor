@@ -35,14 +35,42 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign,readonly)R_SA_KEY_BLOCK  add_pubKey;
 ///加载私钥 路径path
 @property (nonatomic,assign,readonly)R_SA_PRIVATEKEY_BLOCK  add_privatePath;
-
 /// 私钥 字符串private_key
 @property (nonatomic,assign,readonly)R_SA_KEY_BLOCK  add_privateKey;
 
+/// 获取单例请使用 **** RSA_
 + (instancetype)share;
 
 @end
 
+@interface R_SA (Private)
+/// 加载公钥
+/// @param path  DER 公钥文件路径
+- (void)rsa_public_key_path:(NSString *)path;
+- (void)rsa_public_key:(NSString *)key;
+/// 加载私钥
+/// @param path P12 私钥文件路径
+/// @param pwd P12 密码
+- (void)rsa_private_key_path:(NSString *)path pwd:(NSString *)pwd;
+- (void)rsa_private_key:(NSString *)key;
+
+/// RSA 加密数据
+/// @param data 加密后的二进制数据
+- (NSData *)RSA_EN_Data:(NSData *)data;
+
+///  RSA 加密字符串
+/// @param string 要加密的字符串
+- (NSString *)RSA_EN_String:(NSString *)string;
+
+/// RSA 解密数据
+/// @param data 要解密的数据
+- (NSData *)RSA_DE_Data:(NSData *)data;
+
+/// RSA 解密字符串
+/// @param string 要解密的 BASE64 编码字符串
+- (NSString *)RSA_DE_String:(NSString *)string;
+
+@end
 
 
 NS_ASSUME_NONNULL_END

@@ -10,35 +10,6 @@
 #import <CommonCrypto/CommonCrypto.h>
 #import "ResourceCryptor.h"
 
-@interface R_SA (Private)
-/// 加载公钥
-/// @param path  DER 公钥文件路径
-- (void)rsa_public_key_path:(NSString *)path;
-- (void)rsa_public_key:(NSString *)key;
-/// 加载私钥
-/// @param path P12 私钥文件路径
-/// @param pwd P12 密码
-- (void)rsa_private_key_path:(NSString *)path pwd:(NSString *)pwd;
-- (void)rsa_private_key:(NSString *)key;
-
-/// RSA 加密数据
-/// @param data 加密后的二进制数据
-- (NSData *)RSA_EN_Data:(NSData *)data;
-
-///  RSA 加密字符串
-/// @param string 要加密的字符串
-- (NSString *)RSA_EN_String:(NSString *)string;
-
-/// RSA 解密数据
-/// @param data 要解密的数据
-- (NSData *)RSA_DE_Data:(NSData *)data;
-
-/// RSA 解密字符串
-/// @param string 要解密的 BASE64 编码字符串
-- (NSString *)RSA_DE_String:(NSString *)string;
-
-@end
-
 @interface NSData (RSA)
 @property (nonatomic,readonly,assign)NSData *rsa_public_data; //
 @property (nonatomic,readonly,assign)NSData *rsa_private_data; //
@@ -50,7 +21,6 @@ static R_SA *shareInstance = nil;
     SecKeyRef _publicKeyRef;                             // 公钥引用
     SecKeyRef _privateKeyRef;                            // 私钥引用
 }
-
 
 @end
 
@@ -208,27 +178,7 @@ static R_SA *shareInstance = nil;
     if (trustRef) CFRelease(trustRef);
 }
 
-// 信任结果
-// 评估指定证书和策略的信任管理是否有效
-//#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_10_3
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-- (void)vaildTrustRef:(SecTrustRef)trustRef {
-    // 评估指定证书和策略的信任管理是否有效
-    if (@available(iOS 12, macOS 10.14, tvOS 12, watchOS 5, *)) {
-        CFErrorRef error;
-        if (SecTrustEvaluateWithError(trustRef,&error) == NO){}
-    } else {
-        SecTrustResultType trustResult;
-        SecTrustEvaluate(trustRef, &trustResult);
-    }
-}
-- (CFDictionaryRef)CFDictionaryCreateBy:(NSString *)pwd {
-    CFStringRef passwordRef = (__bridge CFStringRef)pwd;
-    const void *keys[] = {kSecImportExportPassphrase};
-    const void *values[] = {passwordRef};
-    return CFDictionaryCreate(NULL, keys, values, 1, NULL, NULL);
-}
+
 - (void)rsa_private_key_path:(NSString *)path pwd:(NSString *)pwd {
     
     // 删除当前私钥
@@ -236,8 +186,6 @@ static R_SA *shareInstance = nil;
     
     NSData *PKCS12Data = [NSData dataWithContentsOfFile:path];
     CFDataRef inPKCS12Data = (__bridge CFDataRef)PKCS12Data;
-    // 从 PKCS #12 证书中提取标示和证书
-    SecIdentityRef myIdentity;
    
     CFDictionaryRef optionsDictionary = [self CFDictionaryCreateBy:pwd];
     CFArrayRef items = CFArrayCreate(NULL, 0, 0, NULL);
@@ -246,10 +194,9 @@ static R_SA *shareInstance = nil;
     OSStatus status = SecPKCS12Import(inPKCS12Data, optionsDictionary, &items);
     CFDictionaryRef myIdentityAndTrust = CFArrayGetValueAtIndex(items, 0);
     
-    myIdentity = (SecIdentityRef)CFDictionaryGetValue(myIdentityAndTrust, kSecImportItemIdentity);
-    
-    SecTrustRef trustRef;
-    trustRef = (SecTrustRef)CFDictionaryGetValue(myIdentityAndTrust, kSecImportItemTrust);
+    // 从 PKCS #12 证书中提取标示和证书
+    SecIdentityRef myIdentity = (SecIdentityRef)CFDictionaryGetValue(myIdentityAndTrust, kSecImportItemIdentity);
+    SecTrustRef trustRef = (SecTrustRef)CFDictionaryGetValue(myIdentityAndTrust, kSecImportItemTrust);
     
     if (optionsDictionary) CFRelease(optionsDictionary);
     // 评估指定证书和策略的信任管理是否有效
@@ -304,6 +251,29 @@ static R_SA *shareInstance = nil;
 }
 - (void)rsa_public_key:(NSString *)key {
     [self createKey:key isPublic:YES];
+}
+
+// 信任结果
+// 评估指定证书和策略的信任管理是否有效
+//#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_10_3
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+- (void)vaildTrustRef:(SecTrustRef)trustRef {
+    // 评估指定证书和策略的信任管理是否有效
+    if (@available(iOS 12, macOS 10.14, tvOS 12, watchOS 5, *)) {
+        CFErrorRef error;
+        if (SecTrustEvaluateWithError(trustRef,&error) == NO){}
+    } else {
+        SecTrustResultType trustResult;
+        SecTrustEvaluate(trustRef, &trustResult);
+    }
+}
+
+- (CFDictionaryRef)CFDictionaryCreateBy:(NSString *)pwd {
+    CFStringRef passwordRef = (__bridge CFStringRef)pwd;
+    const void *keys[] = {kSecImportExportPassphrase};
+    const void *values[] = {passwordRef};
+    return CFDictionaryCreate(NULL, keys, values, 1, NULL, NULL);
 }
 
 - (NSMutableDictionary *)secRefKey:(NSString *)key {
