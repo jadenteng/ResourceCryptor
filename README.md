@@ -197,6 +197,7 @@ M = (P – 1) * (Q – 1)
 > ***欢迎使用我的网络请求封装*** [ResourceX](https://github.com/JadenTeng/ResourceX)
 
 ###  Release Notes 最近更新     
+- 1.0.3 代码优化注释
 - 1.0.2 添加json转换
 - 1.0.1 添加NSdata的转换方法 base64 to NSdata Data to Base64
 - 1.0 Initial release
